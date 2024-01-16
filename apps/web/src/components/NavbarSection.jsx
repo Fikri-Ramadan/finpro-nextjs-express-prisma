@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { IoClose, IoMenu } from 'react-icons/io5';
-import NavLink from './NavLink';
+import NavLinkComp from './NavLinkComp';
 import MenuOverlay from './MenuOverlay';
 
 const linkList = [
@@ -25,7 +25,7 @@ export const NavbarSection = () => {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <section>
-      <nav className="fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+      <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-2">
           <Link href="/" className="flex items-center space-x-3 ">
             <span className="font-bold">Brand</span>
@@ -63,7 +63,7 @@ export const NavbarSection = () => {
             <ul className="flex items-center md:flex-row md:mt-0  md:p-0 mt-4 font-medium">
               {linkList.map((link, i) => (
                 <li key={i}>
-                  <NavLink href={link.href} name={link.name} />
+                  <NavLinkComp href={link.href} name={link.name} />
                 </li>
               ))}
             </ul>
