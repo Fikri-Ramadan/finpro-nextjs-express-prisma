@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 export default function HeroSection() {
   return (
+
     <section className=" bg-bg-hero bg-cover bg-gray-700 bg-blend-multiply mt-14 h-screen flex justify-center pt-20 md:pt-0">
       <div className="flex flex-col md:items-center md:justify-center md:flex-row md:px-4 ">
         <div className="md:w-1/2 md:h-auto flex items-center justify-center">
@@ -13,6 +14,7 @@ export default function HeroSection() {
         <div className="md:w-1/2">
           <div className="py-12 flex flex-col md:w-2/3 mx-6 md:mx-0">
             <div className="">
+
               <span className="text-xl text-white">
                 SBS MTV The Kpop <br /> Show Ticket Package
               </span>
