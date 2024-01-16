@@ -1,12 +1,12 @@
 import React from 'react';
-import NavLink from './Navlink';
+import NavLinkComp from './NavLinkComp';
 
 const MenuOverlay = ({ links }) => {
   return (
     <ul className="flex flex-col py-4 items-center p-4 font-medium">
       {links.map((link, i) => (
         <li key={i}>
-          <NavLink href={link.href} name={link.name} />
+          <NavLinkComp href={link.href} name={link.name} />
         </li>
       ))}
     </ul>
