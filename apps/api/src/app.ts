@@ -5,11 +5,9 @@ import express, {
   Request,
   Response,
   NextFunction,
-  Router,
 } from 'express';
 import cors from 'cors';
 import { PORT } from './config';
-import { SampleRouter } from './routers/sample.router';
 import { AuthRouter } from './routers/auth.router';
 
 export default class App {
@@ -55,6 +53,7 @@ export default class App {
     const authRouter = new AuthRouter();
 
     this.app.get('/', (req: Request, res: Response) => {
+      console.log(process.env.JWT_EXPIRES_IN)
       res.send(`Hello, Purwadhika Student !`);
     });
 

@@ -1,10 +1,16 @@
-import { genSalt, hash } from "bcrypt";
+import { compare, genSalt, hash } from "bcrypt";
 import { NextFunction, Request, Response } from "express";
-import prisma from "lib/prisma";
+import { sign } from "jsonwebtoken";
+import prisma from "@/lib/prisma";
 import ShortUniqueId from "short-unique-id";
+import { User } from "@prisma/client";
 
 interface IError extends Error {
   statusCode?: number;
+}
+
+interface IGetUserInfoRequest extends Request {
+  user?: User,
 }
 
 export class AuthController {
@@ -109,6 +115,64 @@ export class AuthController {
         return res.status(400).json({ success: false, message: error.message });
       }
 
+      next(error);
+    }
+  }
+
+  async login(req: Request, res: Response, next: NextFunction) {
+    try {
+      const payload = {
+        email: req.body.email,
+        password: req.body.password,
+      };
+
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          email: payload.email,
+        }
+      });
+
+      if (!existingUser) {
+        return res.status(400).json({
+          success: false,
+          message: "email not found",
+        });
+      }
+
+      const isValidPassword = await compare(payload.password, existingUser.password);
+
+      if (!isValidPassword) {
+        return res.status(400).json({
+          success: false,
+          message: 'invalid password',
+        });
+      }
+
+      const token = sign({
+        id: existingUser.id,
+        username: existingUser.username,
+        email: existingUser.email,
+        role: existingUser.role,
+      }, process.env.JWT_SECRET as string, { expiresIn: process.env.JWT_EXPIRES_IN });
+
+      return res.status(200).json({
+        success: true,
+        token
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getUserInfo(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const user = req.user;
+
+      return res.status(200).json({
+        success: true,
+        user
+      });
+    } catch (error) {
       next(error);
     }
   }
