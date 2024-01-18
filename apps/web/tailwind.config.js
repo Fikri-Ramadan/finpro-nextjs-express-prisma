@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const { Poppins } = require('next/font/google');
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -12,6 +15,13 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'bg-hero': "url('/banner.jpg')",
+      },
+      colors: {
+        primary: '#0000FF',
+        secondary: '#0000FF',
+      },
+      fontFamily: {
+        Poppins: [Poppins, 'sans-serif'],
       },
     },
   },
