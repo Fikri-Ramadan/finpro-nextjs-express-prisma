@@ -13,7 +13,7 @@ const linkList = [
   },
   {
     name: 'Event',
-    href: '/',
+    href: '/event',
   },
   {
     name: 'My Profile',
