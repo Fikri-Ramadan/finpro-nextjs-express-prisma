@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function ProductPopularSection() {
   return (
-    <section className="md:px-36 md:py-8 bg-gray-100 text-gray-800">
+    <section className="md:px-36 md:py-8 pb-8 bg-gray-50 text-gray-800">
       <div className=" container p-6 mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <div className="font-bold">
