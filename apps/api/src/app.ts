@@ -9,6 +9,7 @@ import express, {
 import cors from 'cors';
 import { PORT } from './config';
 import { AuthRouter } from './routers/auth.router';
+import { UserRouter } from './routers/user.router';
 
 export default class App {
   private app: Express;
@@ -51,6 +52,7 @@ export default class App {
 
   private routes(): void {
     const authRouter = new AuthRouter();
+    const userRouter = new UserRouter();
 
     this.app.get('/', (req: Request, res: Response) => {
       console.log(process.env.JWT_EXPIRES_IN)
@@ -58,6 +60,7 @@ export default class App {
     });
 
     this.app.use('/api/auth', authRouter.getRouter());
+    this.app.use('/api/users', userRouter.getRouter());
   }
 
   public start(): void {
