@@ -1,6 +1,49 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+const eventList = [
+  {
+    id: '1',
+    name: 'Event 1',
+    image: '/box.png',
+  },
+  {
+    id: '2',
+    name: 'Event 2',
+    image: '/box.png',
+  },
+  {
+    id: '3',
+    name: 'Event 3',
+    image: '/box.png',
+  },
+  {
+    id: '4',
+    name: 'Event 4',
+    image: '/box.png',
+  },
+  {
+    id: '5',
+    name: 'Event 5',
+    image: '/box.png',
+  },
+  {
+    id: '6',
+    name: 'Event 6',
+    image: '/box.png',
+  },
+  {
+    id: '7',
+    name: 'Event 7',
+    image: '/box.png',
+  },
+  {
+    id: '8',
+    name: 'Event 8',
+    image: '/box.png',
+  },
+];
+
 export default function ProductCategorySection() {
   return (
     <section className="md:px-36 md:py-8 bg-gray-50 text-gray-800">
@@ -13,20 +56,23 @@ export default function ProductCategorySection() {
             <Link href="/">View All (10)</Link>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-3 md:text-base text-xs gap-x-4 gap-y-8 md:grid-cols-4 lg:grid-cols-4">
           {/* Start Product */}
-          <article className="">
-            <div className="flex flex-col shadow-lg bg-gray-50 p-10 items-center border rounded-xl">
-              <a href="#">
-                <Image src="/box.png" alt="" width={100} height={100} />
-              </a>
-            </div>
-            <div className="flex flex-col flex-1 p-1">
-              <h3 className="flex-1 py-2 text-base font-semibold leadi uppercase">
-                Lorem Ipsum Dolor
-              </h3>
-            </div>
-          </article>
+
+          {eventList.map((event, i) => (
+            <article key={i} className="">
+              <div className="flex flex-col shadow-lg bg-gray-50 p-10 items-center border rounded-xl">
+                <a href="#">
+                  <Image src={event.image} alt="" width={100} height={100} />
+                </a>
+              </div>
+              <div className="flex flex-col flex-1 p-1">
+                <h3 className="flex-1 py-2 text-base font-semibold leadi uppercase">
+                  {event.name}
+                </h3>
+              </div>
+            </article>
+          ))}
           {/* End Product */}
         </div>
       </div>
