@@ -9,7 +9,6 @@ export default function Event() {
       <HeroSection />
       <SearchBarEvent />
       <ListEventSection />
-      <ProductPopularSection />
     </section>
   );
 }
