@@ -21,6 +21,7 @@ model User {
   events        Event[]
   transactions  Transaction[]
   coupons       Coupon[]
+  
   referralCode  ReferralCode?
   referrerUsage ReferralUsage?
 
