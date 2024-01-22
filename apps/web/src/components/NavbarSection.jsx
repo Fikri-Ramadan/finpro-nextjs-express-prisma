@@ -35,7 +35,7 @@ export const NavbarSection = () => {
           <div className="flex md:order-2 space-x-3 md:space-x-0">
             <Link
               href="/login"
-              className={cn(buttonVariants(), 'hidden lg:block')}
+              className={cn(buttonVariants(), 'hidden lg:flex items-center justify-center')}
             >
               Login
             </Link>

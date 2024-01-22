@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Input } from '../ui/input';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import FormRegister from './FormRegister';
 
 export default function Login() {
   return (
@@ -26,15 +27,19 @@ export default function Login() {
       <div className="w-full lg:w-1/3 h-full flex flex-col justify-center">
         <p className="lg:hidden text-2xl font-bold mb-8">Login</p>
         <div className="w-full flex flex-col gap-4">
+          <FormRegister />
+        </div>
+        {/* <p className="lg:hidden text-2xl font-bold mb-8">Login</p>
+        <div className="w-full flex flex-col gap-4">
           <Input
             type="email"
             placeholder="Enter Email"
-            className="bg-blue-50"
+            className="bg-blue-50 border-slate-400"
           />
           <Input
             type="password"
             placeholder="Enter Password"
-            className="bg-blue-50"
+            className="bg-blue-50 border-slate-400"
           />
         </div>
         <Link href="" className="text-right mt-2 text-slate-700 text-sm">
@@ -46,7 +51,7 @@ export default function Login() {
           <Link href="/register" className="text-blue-700 font-semibold">
             register here !
           </Link>
-        </p>
+        </p> */}
       </div>
     </div>
   );

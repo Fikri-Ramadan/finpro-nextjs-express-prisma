@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import FormRegister from './FormRegister';
 
 export default function Register() {
   return (
@@ -42,22 +43,26 @@ export default function Register() {
 
       <div className="w-full lg:w-1/3 h-full flex flex-col justify-center">
         <p className="lg:hidden text-2xl font-bold mb-8">Register</p>
-        <div className="w-full flex flex-col gap-4">
-          <Input placeholder="Enter Username" className="bg-blue-50" />
+          <FormRegister />
+        {/* <div className="w-full flex flex-col gap-4">
+          <Input
+            placeholder="Enter Username"
+            className="bg-blue-50 border-slate-400"
+          />
           <Input
             type="email"
             placeholder="Enter Email"
-            className="bg-blue-50"
+            className="bg-blue-50 border-slate-400"
           />
           <Input
             type="password"
             placeholder="Enter Password"
-            className="bg-blue-50"
+            className="bg-blue-50 border-slate-400"
           />
           <Input
             type="password"
             placeholder="Confirm Password"
-            className="bg-blue-50"
+            className="bg-blue-50 border-slate-400"
           />
 
           <Collapsible>
@@ -66,9 +71,12 @@ export default function Register() {
               <ChevronsUpDown className="w-4 h-4" />
             </CollapsibleTrigger>
             <CollapsibleContent className="space-y-4 py-4 CollapsibleContent">
-              <Input placeholder="Enter Referral Code" className="bg-blue-50" />
-              <Select className="bg-blue-50">
-                <SelectTrigger>
+              <Input
+                placeholder="Enter Referral Code"
+                className="bg-blue-50 border-slate-400"
+              />
+              <Select className="border-slate-400">
+                <SelectTrigger className="border-slate-400">
                   <SelectValue placeholder="Select Role (Default Customer)" />
                 </SelectTrigger>
                 <SelectContent>
@@ -79,7 +87,7 @@ export default function Register() {
             </CollapsibleContent>
           </Collapsible>
         </div>
-        <Button className="mt-8">Sign Up</Button>
+        <Button className="mt-8">Sign Up</Button> */}
         <p className="text-sm font-medium mt-4 lg:hidden">
           if you already have an account you can{' '}
           <Link href="/register" className="text-blue-700 font-semibold">
