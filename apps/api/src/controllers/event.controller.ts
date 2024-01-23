@@ -64,6 +64,7 @@ export class EventController {
           .status(404)
           .json({ success: false, message: 'event not found' });
       }
+
       return res.status(200).json({ success: true, results: existingEvent });
     } catch (error) {
       next(error);
