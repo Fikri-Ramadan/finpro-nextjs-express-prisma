@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { IoClose, IoMenu } from 'react-icons/io5';
 import NavLinkComp from './NavLinkComp';
 import MenuOverlay from './MenuOverlay';
+import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from './ui/button';
 
 const linkList = [
   {
@@ -31,12 +33,12 @@ export const NavbarSection = () => {
             <span className="font-bold">Brand</span>
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0">
-            <button
-              type="button"
-              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow"
+            <Link
+              href="/login"
+              className={cn(buttonVariants(), 'hidden lg:flex items-center justify-center')}
             >
               Login
-            </button>
+            </Link>
             <div className="items-center">
               {!openMenu ? (
                 <button

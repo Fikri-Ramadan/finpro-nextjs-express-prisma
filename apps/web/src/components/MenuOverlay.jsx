@@ -1,5 +1,8 @@
 import React from 'react';
 import NavLinkComp from './NavLinkComp';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from './ui/button';
 
 const MenuOverlay = ({ links }) => {
   return (
@@ -9,6 +12,9 @@ const MenuOverlay = ({ links }) => {
           <NavLinkComp href={link.href} name={link.name} />
         </li>
       ))}
+      <li>
+        <Link href={'/login'} className={cn(buttonVariants())}>Login</Link>
+      </li>
     </ul>
   );
 };
