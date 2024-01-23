@@ -38,16 +38,15 @@ export class EventController {
         },
       });
 
-      res.status(201).json({ success: true, results: newEvent });
+      return res.status(201).json({ success: true, results: newEvent });
     } catch (error: any) {
-      console.log(error);
-      return res.status(500).json(error);
+      next(error);
     }
   }
   async getAllEvent(req: Request, res: Response, next: NextFunction) {
     try {
       const events = await prisma.event.findMany();
-      res.status(200).json({ success: true, results: events });
+      return res.status(200).json({ success: true, results: events });
     } catch (error) {
       next(error);
     }
@@ -65,7 +64,8 @@ export class EventController {
           .status(404)
           .json({ success: false, message: 'event not found' });
       }
-      res.status(200).json({ success: true, results: existingEvent });
+
+      return res.status(200).json({ success: true, results: existingEvent });
     } catch (error) {
       next(error);
     }

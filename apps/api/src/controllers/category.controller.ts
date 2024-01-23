@@ -11,7 +11,7 @@ export class CategoryController {
         },
       });
 
-      res.status(201).json(category);
+      return res.status(201).json(category);
     } catch (error: any) {
       console.log(error);
       return res.status(500).json(error);

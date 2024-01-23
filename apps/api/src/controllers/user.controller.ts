@@ -1,9 +1,9 @@
-import prisma from "@/lib/prisma";
-import { User } from "@prisma/client";
-import { NextFunction, Request, Response } from "express";
+import prisma from '@/lib/prisma';
+import { User } from '@prisma/client';
+import { NextFunction, Request, Response } from 'express';
 
 interface IGetUserInfoRequest extends Request {
-  user?: User,
+  user?: User;
 }
 
 export class UserController {
@@ -12,22 +12,22 @@ export class UserController {
       const totalUsedReferral = await prisma.referralUsage.findMany({
         where: {
           referralCode: {
-            userId: req.user?.id
+            userId: req.user?.id,
           },
           AND: {
             expiryDate: {
-              gt: new Date()
+              gt: new Date(),
             },
             usageDate: null,
-          }
-        }
+          },
+        },
       });
 
       const points = totalUsedReferral.length * 10000;
 
       return res.status(200).json({
         success: true,
-        points
+        points,
       });
     } catch (error) {
       next(error);
@@ -38,11 +38,11 @@ export class UserController {
     try {
       const user = await prisma.user.findUnique({
         where: {
-          id: req.user?.id
-        }
+          id: req.user?.id,
+        },
       });
 
-      res.status(200).json({ user });
+      return res.status(200).json({ user });
     } catch (error) {
       next(error);
     }

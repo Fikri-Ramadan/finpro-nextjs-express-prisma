@@ -41,12 +41,14 @@ model Event {
   location        String
   description     String
   availableSeat   Int
+  image String
   eventType       EventType
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   transactions    Transaction[]
   promotions      Promotion[]
   reviews         Review[]
+  
 
   @@map("events")
 }
