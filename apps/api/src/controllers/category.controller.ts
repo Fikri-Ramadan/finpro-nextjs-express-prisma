@@ -1,5 +1,6 @@
-import prisma from '@/lib/prisma';
+import prisma from '../lib/prisma';
 import { Request, Response, NextFunction } from 'express';
+
 
 export class CategoryController {
   async createCategory(req: Request, res: Response, next: NextFunction) {

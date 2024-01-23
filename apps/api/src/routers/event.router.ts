@@ -1,5 +1,5 @@
-import { EventController } from '@/controllers/event.controller';
-import { AuthMiddleware } from '@/middlewares/auth.middleware';
+import { EventController } from '../controllers/event.controller';
+import { AuthMiddleware } from '../middlewares/auth.middleware';
 import { Router } from 'express';
 
 export class EventRouter {
