@@ -10,6 +10,8 @@ import cors from 'cors';
 import { PORT } from './config';
 import { AuthRouter } from './routers/auth.router';
 import { UserRouter } from './routers/user.router';
+import { EventRouter } from './routers/event.router';
+import { CategoryRouter } from './routers/category.router';
 
 export default class App {
   private app: Express;
@@ -53,14 +55,22 @@ export default class App {
   private routes(): void {
     const authRouter = new AuthRouter();
     const userRouter = new UserRouter();
+    // Ibnu Start
+    const eventRouter = new EventRouter();
+    const categoryRouter = new CategoryRouter();
+    // Ibnu Stop
 
     this.app.get('/', (req: Request, res: Response) => {
-      console.log(process.env.JWT_EXPIRES_IN)
+      console.log(process.env.JWT_EXPIRES_IN);
       res.send(`Hello, Purwadhika Student !`);
     });
 
     this.app.use('/api/auth', authRouter.getRouter());
     this.app.use('/api/users', userRouter.getRouter());
+    // Ibnu Start
+    this.app.use('/api/events', eventRouter.getRouter());
+    this.app.use('/api/categories', categoryRouter.getRouter());
+    // Ibnu Stop
   }
 
   public start(): void {

@@ -21,6 +21,7 @@ model User {
   events        Event[]
   transactions  Transaction[]
   coupons       Coupon[]
+  
   referralCode  ReferralCode?
   referrerUsage ReferralUsage?
 
@@ -40,12 +41,14 @@ model Event {
   location        String
   description     String
   availableSeat   Int
+  image String
   eventType       EventType
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   transactions    Transaction[]
   promotions      Promotion[]
   reviews         Review[]
+  
 
   @@map("events")
 }
