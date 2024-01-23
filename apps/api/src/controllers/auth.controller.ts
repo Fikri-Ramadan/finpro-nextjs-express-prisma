@@ -1,7 +1,7 @@
 import { compare, genSalt, hash } from "bcrypt";
 import { NextFunction, Request, Response } from "express";
 import { sign } from "jsonwebtoken";
-import prisma from "@/lib/prisma";
+import prisma from "../lib/prisma";
 import ShortUniqueId from "short-unique-id";
 import { User } from "@prisma/client";
 

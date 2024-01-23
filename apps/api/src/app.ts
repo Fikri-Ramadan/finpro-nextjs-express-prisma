@@ -14,7 +14,7 @@ import { EventRouter } from './routers/event.router';
 import { CategoryRouter } from './routers/category.router';
 
 export default class App {
-  private app: Express;
+  readonly app: Express;
 
   constructor() {
     this.app = express();

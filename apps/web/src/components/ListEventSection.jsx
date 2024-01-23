@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import axios from 'axios';
 import Link from 'next/link';
-// import { useRouter } from 'next/router';
-import { redirect } from 'next/navigation';
 
 export default async function ListEventSection() {
   const res = await axios.get('http://localhost:8000/api/events');
@@ -18,8 +16,8 @@ export default async function ListEventSection() {
       <div className="p-6 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
         {/* Start Product */}
         {events.map((event, i) => (
-          <Link href={`/event/${event.id}`}>
-            <article key={i} className="">
+          <Link href={`/event/${event.id}`} key={i}>
+            <article className="">
               <div className="flex flex-col shadow-lg bg-gray-50 p-10 items-center border rounded-xl">
                 <a href="#">
                   <Image src={'/band.png'} alt="" width={100} height={100} />
