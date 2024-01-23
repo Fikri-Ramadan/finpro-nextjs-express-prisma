@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import Link from 'next/link';
 
 export default function FormRegister() {
   const formik = useFormik({
@@ -102,7 +103,8 @@ export default function FormRegister() {
         ) : null}
       </div>
 
-      <Collapsible>
+      <div className='relative'>
+      <Collapsible className='absolute top-0 w-full'>
         <CollapsibleTrigger className="w-full flex items-center justify-between text-sm font-light">
           Do you organizer or usage referral code ?
           <ChevronsUpDown className="w-4 h-4" />
@@ -136,9 +138,15 @@ export default function FormRegister() {
             </SelectContent>
           </Select>
         </CollapsibleContent>
+        <Button type="submit" className='w-full mt-4'>Sign In</Button>
+        <p className="text-sm font-medium mt-4 lg:hidden">
+          if you already have an account you can{' '}
+          <Link href="/register" className="text-blue-700 font-semibold">
+            login here !
+          </Link>
+        </p>
       </Collapsible>
-
-      <Button type="submit">Sign In</Button>
+      </div>
     </form>
   );
 }
