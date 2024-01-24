@@ -22,11 +22,12 @@ export class EventController {
         description,
         availableSeat,
         eventType,
+        categoryId
       } = req.body;
       const newEvent = await prisma.event.create({
         data: {
           organizerUserId: id as string,
-          categoryId: 'clroxnnwl0000ahw510zuz5fy',
+          categoryId,
           name,
           price,
           startEvent,
