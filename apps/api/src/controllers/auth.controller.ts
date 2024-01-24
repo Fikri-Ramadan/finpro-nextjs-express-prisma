@@ -108,7 +108,7 @@ export class AuthController {
 
       return res.status(201).json({
         success: true,
-        user: newUser
+        results: newUser
       });
     } catch (error: any) {
       if (error.statusCode === 400) {
@@ -157,7 +157,7 @@ export class AuthController {
 
       return res.status(200).json({
         success: true,
-        token
+        results: token
       });
     } catch (error) {
       next(error);

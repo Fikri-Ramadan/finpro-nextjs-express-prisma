@@ -3,6 +3,8 @@ import './globals.css';
 import { NavbarSection } from '@/components/NavbarSection';
 import { Footer } from '@/components/Footer';
 import { cn } from '@/lib/utils';
+import { Toaster } from '@/components/ui/toaster';
+import Provider from '@/components/provider/Provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +17,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={cn(inter.className, 'antialiased min-h-screen')}>
-        <NavbarSection />
-        {children}
-        <Footer />
+        <Provider>
+          <NavbarSection />
+          {children}
+          <Toaster />
+          <Footer />
+        </Provider>
       </body>
     </html>
   );
