@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Provider from '@/components/provider/Provider';
 import { CookiesProvider } from 'next-client-cookies/server';
+import SessionProvider from '@/components/provider/SessionProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,14 +19,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={cn(inter.className, 'antialiased min-h-screen')}>
-        <Provider>
-          <CookiesProvider>
-            <NavbarSection />
-            {children}
-            <Toaster />
-            <Footer />
-          </CookiesProvider>
-        </Provider>
+        <CookiesProvider>
+          <SessionProvider>
+            <Provider>
+              <NavbarSection />
+              {children}
+              <Toaster />
+              <Footer />
+            </Provider>
+          </SessionProvider>
+        </CookiesProvider>
       </body>
     </html>
   );

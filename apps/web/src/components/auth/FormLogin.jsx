@@ -1,6 +1,6 @@
 'use client';
 
-import { validateLogin } from '@/helpers/validation';
+import { validateLogin } from '@/utils/validation';
 import { useFormik } from 'formik';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';

@@ -170,7 +170,7 @@ export class AuthController {
 
       return res.status(200).json({
         success: true,
-        user
+        results: user
       });
     } catch (error) {
       next(error);

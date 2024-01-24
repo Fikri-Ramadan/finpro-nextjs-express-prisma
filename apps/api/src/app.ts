@@ -66,7 +66,7 @@ export default class App {
     });
 
     this.app.use('/api/auth', authRouter.getRouter());
-    this.app.use('/api/users', userRouter.getRouter());
+    this.app.use('/api/user', userRouter.getRouter());
     // Ibnu Start
     this.app.use('/api/events', eventRouter.getRouter());
     this.app.use('/api/categories', categoryRouter.getRouter());

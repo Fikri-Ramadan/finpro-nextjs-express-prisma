@@ -3,7 +3,7 @@
 import { useFormik } from 'formik';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { validateRegister } from '@/helpers/validation';
+import { validateRegister } from '@/utils/validation';
 import {
   Collapsible,
   CollapsibleContent,
@@ -64,7 +64,7 @@ export default function FormRegister() {
         toast({
           variant: 'destructive',
           title: 'Password is not equals !',
-          description: 'Password and Confirm Password is not equals.',
+          description: 'Password and Confirm Password must be equals.',
         });
         return;
       }
