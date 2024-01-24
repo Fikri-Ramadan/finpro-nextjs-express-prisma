@@ -22,6 +22,7 @@ import { useToast } from '../ui/use-toast';
 import customAxios from '@/lib/axios';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
+import { useCookies } from 'next-client-cookies';
 
 export default function FormRegister() {
   const { toast } = useToast();
@@ -209,7 +210,7 @@ export default function FormRegister() {
             {isPending ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
-              'Sign In'
+              'Sign Up'
             )}
           </Button>
           <p className="text-sm font-medium mt-4 lg:hidden">
