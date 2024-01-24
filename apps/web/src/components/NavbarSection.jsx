@@ -18,8 +18,8 @@ const linkList = [
     href: '/event',
   },
   {
-    name: 'My Profile',
-    href: '/',
+    name: 'Create Event',
+    href: '/event/create',
   },
 ];
 
@@ -27,7 +27,7 @@ export const NavbarSection = () => {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <section>
-      <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+      <nav className="bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:px-14 px-4 py-2">
           <Link href="/" className="flex items-center space-x-3 ">
             <span className="font-bold">Brand</span>
@@ -35,7 +35,10 @@ export const NavbarSection = () => {
           <div className="flex md:order-2 space-x-3 md:space-x-0">
             <Link
               href="/login"
-              className={cn(buttonVariants(), 'hidden lg:flex items-center justify-center')}
+              className={cn(
+                buttonVariants(),
+                'hidden lg:flex items-center justify-center',
+              )}
             >
               Login
             </Link>
