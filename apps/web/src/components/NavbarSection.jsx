@@ -1,17 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IoClose, IoMenu } from 'react-icons/io5';
 import NavLinkComp from './NavLinkComp';
 import MenuOverlay from './MenuOverlay';
-import { cn } from '@/lib/utils';
-import { Button, buttonVariants } from './ui/button';
-import useSession from '@/hooks/useSession';
-import { useCookies } from 'next-client-cookies';
-import { SessionContext } from '../provider/SessionProvider';
-import { useRouter } from 'next/navigation';
-import { DialogLogout } from './DialogLogout';
+import ProfileSection from './auth/ProfileSection';
 
 const linkList = [
   {
@@ -30,9 +24,6 @@ const linkList = [
 
 export const NavbarSection = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const { userDetails } = useContext(SessionContext);
-  const { isAuthenticated } = userDetails;
-
 
   return (
     <section>
@@ -42,29 +33,7 @@ export const NavbarSection = () => {
             <span className="font-bold">Brand</span>
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0">
-            {isAuthenticated ? (
-              // <Button
-              //   onClick={() => {
-              //     cookies.remove('token');
-              //     refetch();
-              //     router.push('/login');
-              //     router.refresh();
-              //   }}
-              // >
-              //   Logout
-              // </Button>
-              <DialogLogout />
-            ) : (
-              <Link
-                href="/login"
-                className={cn(
-                  buttonVariants(),
-                  'hidden lg:flex items-center justify-center',
-                )}
-              >
-                Login
-              </Link>
-            )}
+            <ProfileSection />
             <div className="items-center">
               {!openMenu ? (
                 <button
