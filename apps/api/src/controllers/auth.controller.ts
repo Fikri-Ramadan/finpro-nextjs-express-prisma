@@ -164,7 +164,7 @@ export class AuthController {
     }
   }
 
-  async getUserInfo(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+  async getUserFromToken(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
     try {
       const user = req.user;
 

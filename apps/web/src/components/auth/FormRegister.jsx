@@ -3,7 +3,7 @@
 import { useFormik } from 'formik';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { validateRegister } from '@/utils/validation';
+import { validateRegister } from '@/lib/validation';
 import {
   Collapsible,
   CollapsibleContent,
@@ -96,7 +96,7 @@ export default function FormRegister() {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="w-full flex flex-col gap-4 mt-16"
+      className="w-full flex flex-col gap-4 lg:mt-16"
     >
       <div className="space-y-2">
         <Input

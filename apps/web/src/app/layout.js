@@ -4,9 +4,10 @@ import { NavbarSection } from '@/components/NavbarSection';
 import { Footer } from '@/components/Footer';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
-import Provider from '@/components/provider/Provider';
+import Provider from '@/provider/QueryProvider';
 import { CookiesProvider } from 'next-client-cookies/server';
-import SessionProvider from '@/components/provider/SessionProvider';
+import SessionProvider from '@/provider/SessionProvider';
+import QueryProvider from '@/provider/QueryProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,14 +21,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={cn(inter.className, 'antialiased min-h-screen')}>
         <CookiesProvider>
-          <SessionProvider>
-            <Provider>
+          <QueryProvider>
+            <SessionProvider>
               <NavbarSection />
               {children}
               <Toaster />
               <Footer />
-            </Provider>
-          </SessionProvider>
+            </SessionProvider>
+          </QueryProvider>
         </CookiesProvider>
       </body>
     </html>

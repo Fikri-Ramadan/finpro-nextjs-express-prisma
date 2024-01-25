@@ -1,6 +1,6 @@
 'use client';
 
-import { validateLogin } from '@/utils/validation';
+import { validateLogin } from '@/lib/validation';
 import { useFormik } from 'formik';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
@@ -47,6 +47,7 @@ export default function FormLogin() {
             cookies.set('token', data.results, { secure: true, expires: 1 });
 
             router.push('/');
+            router.refresh();
           },
           onError: (error) => {
             toast({

@@ -61,7 +61,6 @@ export default class App {
     // Ibnu Stop
 
     this.app.get('/', (req: Request, res: Response) => {
-      console.log(process.env.JWT_EXPIRES_IN);
       res.send(`Hello, Purwadhika Student !`);
     });
 
