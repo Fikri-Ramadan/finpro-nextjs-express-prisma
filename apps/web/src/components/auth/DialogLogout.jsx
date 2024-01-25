@@ -1,6 +1,6 @@
 'use client';
 
-import { Copy } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -25,7 +25,10 @@ export function DialogLogout() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Logout</Button>
+        <div className='flex items-center pl-[10px] cursor-pointer'>
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>Log out</span>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
