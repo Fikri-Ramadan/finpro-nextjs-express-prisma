@@ -6,7 +6,7 @@ export default async function ListEventSection() {
   const res = await axios.get('http://localhost:8000/api/events');
   const events = await res?.data?.results;
   console.log(events);
-  // const router = useRouter();
+  // const  router = useRouter();
   return (
     <section className="md:px-36 md:py-8">
       <div className="px-6 mx-auto flex flex-row justify-between items-center">

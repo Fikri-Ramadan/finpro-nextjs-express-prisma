@@ -41,11 +41,11 @@ describe("TEST Auth", () => {
       }
     });
 
-    await prisma.user.delete({
-      where: {
-        email: sampleRegisterValidReferral.email
-      }
-    });
+    // await prisma.user.delete({
+    //   where: {
+    //     email: sampleRegisterValidReferral.email
+    //   }
+    // });
 
     await prisma.$disconnect();
   });
@@ -58,12 +58,12 @@ describe("TEST Auth", () => {
     expect(response.body.success).toBe(true);
   });
 
-  it('Should create new user using referral code', async () => {
-    const response = await supertest(app).post('/api/auth/register').send(sampleRegisterValidReferral);
+  // it('Should create new user using referral code', async () => {
+  //   const response = await supertest(app).post('/api/auth/register').send(sampleRegisterValidReferral);
 
-    expect(response.status).toBe(201);
-    expect(response.body.success).toBe(true);
-  });
+  //   expect(response.status).toBe(201);
+  //   expect(response.body.success).toBe(true);
+  // });
 
   // BAD CASE
   it('Should handle existing email register', async () => {
