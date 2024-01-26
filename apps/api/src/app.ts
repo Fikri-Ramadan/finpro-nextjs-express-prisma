@@ -61,12 +61,11 @@ export default class App {
     // Ibnu Stop
 
     this.app.get('/', (req: Request, res: Response) => {
-      console.log(process.env.JWT_EXPIRES_IN);
       res.send(`Hello, Purwadhika Student !`);
     });
 
     this.app.use('/api/auth', authRouter.getRouter());
-    this.app.use('/api/users', userRouter.getRouter());
+    this.app.use('/api/user', userRouter.getRouter());
     // Ibnu Start
     this.app.use('/api/events', eventRouter.getRouter());
     this.app.use('/api/categories', categoryRouter.getRouter());

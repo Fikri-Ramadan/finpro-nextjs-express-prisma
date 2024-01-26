@@ -108,7 +108,7 @@ export class AuthController {
 
       return res.status(201).json({
         success: true,
-        user: newUser
+        results: newUser
       });
     } catch (error: any) {
       if (error.statusCode === 400) {
@@ -157,20 +157,20 @@ export class AuthController {
 
       return res.status(200).json({
         success: true,
-        token
+        results: token
       });
     } catch (error) {
       next(error);
     }
   }
 
-  async getUserInfo(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+  async getUserFromToken(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
     try {
       const user = req.user;
 
       return res.status(200).json({
         success: true,
-        user
+        results: user
       });
     } catch (error) {
       next(error);

@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { IoClose, IoMenu } from 'react-icons/io5';
 import NavLinkComp from './NavLinkComp';
 import MenuOverlay from './MenuOverlay';
-import { cn } from '@/lib/utils';
-import { Button, buttonVariants } from './ui/button';
+import ProfileSection from './auth/ProfileSection';
 
 const linkList = [
   {
@@ -25,6 +24,7 @@ const linkList = [
 
 export const NavbarSection = () => {
   const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <section>
       <nav className="bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200">
@@ -33,15 +33,7 @@ export const NavbarSection = () => {
             <span className="font-bold">Brand</span>
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0">
-            <Link
-              href="/login"
-              className={cn(
-                buttonVariants(),
-                'hidden lg:flex items-center justify-center',
-              )}
-            >
-              Login
-            </Link>
+            <ProfileSection />
             <div className="items-center">
               {!openMenu ? (
                 <button

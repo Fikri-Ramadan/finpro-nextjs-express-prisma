@@ -27,7 +27,7 @@ export class UserController {
 
       return res.status(200).json({
         success: true,
-        points,
+        results: { points },
       });
     } catch (error) {
       next(error);
@@ -42,7 +42,10 @@ export class UserController {
         },
       });
 
-      return res.status(200).json({ user });
+      return res.status(200).json({
+        success: true,
+        results: user
+      });
     } catch (error) {
       next(error);
     }

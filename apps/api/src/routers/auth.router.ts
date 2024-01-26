@@ -17,9 +17,9 @@ export class AuthRouter {
   private initializeRoutes() {
     this.router.post('/register', this.authController.register);
     this.router.post('/login', this.authController.login);
-    this.router.post('/verifyToken',
+    this.router.get('/verifyToken',
       this.authMiddleware.verifyToken,
-      this.authController.getUserInfo);
+      this.authController.getUserFromToken);
   }
 
   getRouter() {
