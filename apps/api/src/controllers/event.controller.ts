@@ -36,6 +36,7 @@ export class EventController {
           description,
           availableSeat,
           eventType,
+          image: '/band.png',
         },
       });
 
@@ -49,6 +50,8 @@ export class EventController {
       const events = await prisma.event.findMany();
       return res.status(200).json({ success: true, results: events });
     } catch (error) {
+      console.log(error);
+
       next(error);
     }
   }

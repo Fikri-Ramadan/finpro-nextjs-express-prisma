@@ -1,4 +1,4 @@
-import { axiosInstance } from '@/lib/axios';
+import customAxios from '@/lib/axios'; 
 import axios from 'axios';
 import Image from 'next/image';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -6,7 +6,7 @@ import { FaLocationDot } from 'react-icons/fa6';
 
 async function fetchSingleEvent(id) {
   try {
-    const res = await axiosInstance.get(`/events/${id}`);
+    const res = await customAxios.get(`/api/events/${id}`);
     return {
       name: res?.data?.results.name,
       location: res?.data?.results.location,

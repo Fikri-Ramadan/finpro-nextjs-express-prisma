@@ -15,7 +15,7 @@ model User {
   username      String
   email         String         @unique
   password      String
-  role          Role           @default(USER)
+  role          Role           @default(CUSTOMER)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   events        Event[]
@@ -41,7 +41,7 @@ model Event {
   location        String
   description     String
   availableSeat   Int
-  image String
+  image           String
   eventType       EventType
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
@@ -148,7 +148,8 @@ model Coupon {
 
 enum Role {
   ORGANIZER
-  USER
+  CUSTOMER
+  ADMIN
 }
 
 enum EventType {
