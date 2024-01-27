@@ -1,35 +1,22 @@
 'use client';
 
 import useSession from '@/hooks/useSession';
-import { SessionContext } from '@/provider/SessionProvider';
 import { Loader2 } from 'lucide-react';
-import { useContext } from 'react';
-import { DialogLogout } from './DialogLogout';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '../ui/button';
-import { Avatar, AvatarFallback } from '../ui/avatar';
 import ProfileDropDown from './ProfileDropDown';
+import useAuth from '@/hooks/useAuth';
 
 export default function ProfileSection() {
-  const { userDetails } = useContext(SessionContext);
-  const { isAuthenticated } = userDetails;
-  const { isLoading } = useSession();
+  const { userDetails, isAuthenticated, isLoading } = useAuth();
 
   return (
     <>
       {isLoading ? (
         <Loader2 className="w-4 h-4 animate-spin" />
       ) : isAuthenticated ? (
-        <>
-          {/* <Avatar className='mr-4 bg-slate-800 cursor-pointer'>
-            <AvatarFallback className='text-slate-900'>
-              {userDetails?.username[0]?.toUpperCase()}
-            </AvatarFallback>
-          </Avatar> */}
-          <ProfileDropDown username={userDetails?.username} />
-          {/* <DialogLogout /> */}
-        </>
+        <ProfileDropDown username={userDetails?.username} />
       ) : (
         <Link
           href="/login"

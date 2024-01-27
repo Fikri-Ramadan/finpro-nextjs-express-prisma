@@ -11,17 +11,17 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  username      String
-  email         String         @unique
-  password      String
-  role          Role           @default(USER)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  events        Event[]
-  transactions  Transaction[]
-  coupons       Coupon[]
-  
+  id           String        @id @default(cuid())
+  username     String
+  email        String        @unique
+  password     String
+  role         Role          @default(CUSTOMER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  events       Event[]
+  transactions Transaction[]
+  coupons      Coupon[]
+
   referralCode  ReferralCode?
   referrerUsage ReferralUsage?
 
@@ -41,14 +41,13 @@ model Event {
   location        String
   description     String
   availableSeat   Int
-  image String
+  image           String?
   eventType       EventType
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   transactions    Transaction[]
   promotions      Promotion[]
   reviews         Review[]
-  
 
   @@map("events")
 }
@@ -148,7 +147,7 @@ model Coupon {
 
 enum Role {
   ORGANIZER
-  USER
+  CUSTOMER
 }
 
 enum EventType {

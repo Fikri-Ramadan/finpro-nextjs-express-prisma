@@ -2,7 +2,6 @@ import { User } from 'lucide-react';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { DialogLogout } from './DialogLogout';
-import { useState } from 'react';
 
 export default function ProfileDropDown({ username }) {
   return (
@@ -15,7 +14,7 @@ export default function ProfileDropDown({ username }) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>Hello, {username}! 👋</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>

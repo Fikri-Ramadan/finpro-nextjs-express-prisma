@@ -11,10 +11,10 @@ export class UserController {
     try {
       const totalUsedReferral = await prisma.referralUsage.findMany({
         where: {
-          referralCode: {
-            userId: req.user?.id,
-          },
           AND: {
+            referralCode: {
+              userId: req.user?.id,
+            },
             expiryDate: {
               gt: new Date(),
             },
@@ -27,7 +27,7 @@ export class UserController {
 
       return res.status(200).json({
         success: true,
-        results: { points },
+        results: points,
       });
     } catch (error) {
       next(error);
@@ -45,6 +45,46 @@ export class UserController {
       return res.status(200).json({
         success: true,
         results: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getCoupons(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const coupons = await prisma.coupon.findMany({
+        where: {
+          AND: {
+            userId: req.user?.id,
+            expiryDate: {
+              gt: new Date(),
+            },
+            transactionId: null
+          }
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        results: coupons,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getTransactions(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const transactions = await prisma.transaction.findMany({
+        where: {
+          userId: req.user?.id,
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        results: transactions
       });
     } catch (error) {
       next(error);
