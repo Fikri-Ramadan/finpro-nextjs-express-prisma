@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import axios from 'axios';
 import Link from 'next/link';
+import { axiosInstance } from '@/lib/axios';
 
 export default async function ListEventSection() {
-  const res = await axios.get('http://localhost:8000/api/events');
+  const res = await axiosInstance.get('/events');
   const events = await res?.data?.results;
   console.log(events);
-  // const  router = useRouter();
+
   return (
     <section className="md:px-36 md:py-8">
       <div className="px-6 mx-auto flex flex-row justify-between items-center">
@@ -18,10 +18,16 @@ export default async function ListEventSection() {
         {events.map((event, i) => (
           <Link href={`/event/${event.id}`} key={i}>
             <article className="">
-              <div className="flex flex-col shadow-lg bg-gray-50 p-10 items-center border rounded-xl">
-                <a href="#">
-                  <Image src={'/band.png'} alt="" width={100} height={100} />
-                </a>
+              <div className="flex flex-col shadow-lg bg-gray-50 p-4 items-center border rounded-xl">
+                <div href="#" className="rounded-xl border">
+                  <Image
+                    src={'/banner.jpg'}
+                    alt=""
+                    width={500}
+                    height={500}
+                    className="object-contain border rounded-xl"
+                  />
+                </div>
               </div>
               <div className="flex flex-row gap-3  justify-start  p-1 items-center">
                 <h3 className="  py-1 text-sm leadi uppercase w-auto">
