@@ -8,8 +8,8 @@ import {
 
 export const Footer = () => {
   return (
-    <section className="px-6 py-2 md:px-36 md:py-8 pb-8 flex items-center  bg-gray-400 w-full">
-      <div className="flex flex-row justify-center gap-40 w-full ">
+    <section className="px-4 py-2 md:px-36 md:py-8 pb-8 flex items-center  bg-gray-400 w-auto">
+      <div className="flex flex-row justify-center gap-20 md:gap-40 ">
         <div className="flex flex-col gap-3 items-center justify-center">
           <span className="font-bold">BRAND LOGO</span>
           <h1>Social Media</h1>

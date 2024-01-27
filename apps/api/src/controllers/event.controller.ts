@@ -22,7 +22,7 @@ export class EventController {
         description,
         availableSeat,
         eventType,
-        categoryId
+        categoryId,
       } = req.body;
       const newEvent = await prisma.event.create({
         data: {
@@ -58,6 +58,10 @@ export class EventController {
       const existingEvent = await prisma.event.findUnique({
         where: {
           id: req.params.id,
+        },
+        include: {
+          organizer: { select: { username: true, email: true } },
+          category: { select: { name: true } },
         },
       });
       if (!existingEvent) {
