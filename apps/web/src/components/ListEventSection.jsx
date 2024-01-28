@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { axiosInstance } from '@/lib/axios';
+import customAxios  from '@/lib/axios';
 
 export default async function ListEventSection() {
-  const res = await axiosInstance.get('/events');
+  const res = await customAxios.get('/api/events');
   const events = await res?.data?.results;
   console.log(events);
 

@@ -17,12 +17,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Input } from '../ui/input';
 
 export default function Dropdown({ value, onChangeHandler }) {
   const [categories, setCategories] = useState([]);
   const [newCategories, setNewCategories] = useState('');
-  const handleAddCategories = () => {};
+
+  const handleAddCategories = () => {}
 
   return (
     <div className="w-full">
@@ -38,7 +38,17 @@ export default function Dropdown({ value, onChangeHandler }) {
                 {categories.name}
               </SelectItem>
             ))}
-          <AlertDialog>
+
+          {/*  */}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+
+
+
+{/* <AlertDialog>
             <AlertDialogTrigger className="text-xs flex w-full rounded-sm py-1 pl-4 text-blue-700">
               Create New
             </AlertDialogTrigger>
@@ -63,9 +73,4 @@ export default function Dropdown({ value, onChangeHandler }) {
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
-          </AlertDialog>
-        </SelectContent>
-      </Select>
-    </div>
-  );
-}
+          </AlertDialog> */}
