@@ -1,4 +1,6 @@
-import FormEvent from '@/components/createEvent/FormEvent';
+import dynamic from 'next/dynamic';
+
+const FormEvent = dynamic(() => import('../../../components/createEvent/FormEvent'), { ssr: false })
 
 const CreateEvent = () => {
   return (

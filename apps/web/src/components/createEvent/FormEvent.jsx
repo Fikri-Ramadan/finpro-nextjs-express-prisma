@@ -9,16 +9,32 @@ import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Checkbox } from '../ui/checkbox';
-import Dropdown from './Categories';
 import customAxios from '@/lib/axios';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { useToast } from '../ui/use-toast';
-import { validateEvent } from '@/lib/validationEvent';
+import { validateEvent } from '@/lib/validation';
+import { useState } from 'react';
+import useCategory from '@/hooks/useCategory';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
+import { useCookies } from 'next-client-cookies';
 
 export default function FormEvent() {
   const router = useRouter();
   const { toast } = useToast();
+  const [isFreeEvent, setFreeEvent] = useState(false);
+  const [startEvent, setStartEvent] = useState(new Date());
+  const [endEvent, setEndEvent] = useState(new Date());
+  const cookies = useCookies();
+  const token = cookies.get('token');
+
+  const { data: categories, isLoading: loadingCategories } = useCategory();
 
   const { mutate } = useMutation({
     mutationFn: async ({
@@ -32,38 +48,46 @@ export default function FormEvent() {
       availableSeat,
       eventType,
     }) => {
-      const res = await customAxios.post('/api/events', {
-        name,
-        price,
-        startEvent,
-        endEvent,
-        categoryId,
-        location,
-        description,
-        availableSeat,
-        eventType,
-      });
-      console.log(res.data.results);
+      const res = await customAxios.post(
+        '/api/events',
+        {
+          name,
+          price,
+          startEvent,
+          endEvent,
+          categoryId,
+          location,
+          description,
+          availableSeat,
+          eventType,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      return res.data.results;
     },
   });
   const formik = useFormik({
     initialValues: {
       name: '',
-      price: '',
-      startEvent: '2024-01-23T13:14:47.415Z',
-      endEvent: '2024-01-23T13:14:47.415Z',
-      categoryId: 'clrw5nz0o0003es9w8kqpsz1u',
+      price: 0,
+      startEvent: new Date(),
+      endEvent: new Date(),
+      categoryId: '',
       location: '',
       description: '',
       availableSeat: '',
       eventType: 'PAID',
+      image: '',
     },
     validationSchema: validateEvent,
     onSubmit: ({
       name,
       price,
-      startEvent,
-      endEvent,
       categoryId,
       location,
       description,
@@ -89,22 +113,21 @@ export default function FormEvent() {
               title: 'Event created successfully',
               description: 'Event created successfully',
             });
-            router.push('/events');
+            router.push('/event');
+            router.refresh();
           },
-          onError: () => {
+          onError: (error) => {
+            console.log(error)
             toast({
               variant: 'destructive',
               title: 'Failed to create event',
-              description: 'Failed to create event',
+              description: error.response?.data?.error || error.response?.data?.message,
             });
           },
         },
       );
     },
   });
-
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(new Date());
 
   return (
     <section className="py-8 full flex flex-col gap-4 w-full justify-center items-center">
@@ -114,24 +137,52 @@ export default function FormEvent() {
       >
         {/* Name Event */}
         <Input
-          onChange={formik.handleChange}
           name="name"
+          type="text"
           placeholder="Name Event"
+          className="border-slate-400"
+          {...formik.getFieldProps('name')}
         />
-        <span>{formik.values.name}</span>
+        {formik.touched.name && formik.errors.name ? (
+          <div className="text-xs text-red-500">{formik.errors.name}</div>
+        ) : null}
 
         {/* Location */}
         <Input
-          onChange={formik.handleChange}
           name="location"
+          type="text"
           placeholder="Location"
+          className="border-slate-400"
+          {...formik.getFieldProps('location')}
         />
+        {formik.touched.location && formik.errors.location ? (
+          <div className="text-xs text-red-500">{formik.errors.location}</div>
+        ) : null}
 
-        {/* Categories */}
-        <Dropdown name="categories" onChange={formik.handleChange} />
+        {/* Category */}
+        <Select
+          onValueChange={(value) => {
+            formik.setFieldValue('categoryId', value);
+          }}
+        >
+          <SelectTrigger className="text-slate-500 border-slate-400">
+            {loadingCategories ? (
+              <SelectValue placeholder="Fetching Categories" />
+            ) : (
+              <SelectValue placeholder="Choose a Category" />
+            )}
+          </SelectTrigger>
+          <SelectContent>
+            {categories?.map((category, i) => (
+              <SelectItem key={i} value={category.id}>
+                {category.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
         {/* Pick Calendar */}
-        {/* <div className="flex flex-row justify-start gap-4 items-center h-[36px] w-full rounded-md bg-white border-solid border-[1px] border-gray-200 px-4 py-2">
+        <div className="flex flex-row justify-start gap-4 items-center h-[36px] w-full rounded-md bg-white border-solid border-[1px] border-slate-400 px-4 py-2">
           <CalendarDays className="mr-2 h-5 w-5 text-gray-600" />
           <p className="ml-0 whitespace-nowrap text-sm text-gray-500">
             Start Date:
@@ -139,14 +190,14 @@ export default function FormEvent() {
           <DatePicker
             className="mx-1 items-center w-[95%] px-0 text-sm"
             name="startEvent"
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            selected={startEvent}
+            onChange={(date) => setStartEvent(date)}
             showTimeSelect
             timeInputLabel="Time:"
             dateFormat={'yyyy/MM/dd h:mm aa'}
           />
         </div>
-        <div className="flex flex-row justify-start gap-4 items-center h-[36px] w-full rounded-md bg-white border-solid border-[1px] border-gray-200 px-4 py-2">
+        <div className="flex flex-row justify-start gap-4 items-center h-[36px] w-full rounded-md bg-white border-solid border-[1px] border-slate-400 px-4 py-2">
           <CalendarDays className="mr-2 h-5 w-5 text-gray-600" />
           <p className="ml-0 mr-2 whitespace-nowrap text-sm text-gray-500">
             End Date:
@@ -154,32 +205,55 @@ export default function FormEvent() {
           <DatePicker
             className="mx-1 items-center w-[95%] px-0 text-sm"
             name="endEvent"
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            selected={endEvent}
+            onChange={(date) => setEndEvent(date)}
             showTimeSelect
             timeInputLabel="Time:"
             dateFormat={'yyyy/MM/dd h:mm aa'}
           />
-        </div> */}
+        </div>
 
         {/* Available Seat */}
         <Input
-          onChange={formik.handleChange}
           type="number"
-          placeholder="Seat"
-          name="seat"
+          placeholder="Available Seat"
+          name="availableSeat"
+          className="border-slate-400"
+          {...formik.getFieldProps('availableSeat')}
         />
+        {formik.touched.availableSeat && formik.errors.availableSeat ? (
+          <div className="text-xs text-red-500">
+            {formik.errors.availableSeat}
+          </div>
+        ) : null}
 
         {/* Price */}
         <div>
           <Input
-            onChange={formik.handleChange}
             type="number"
             name="price"
             placeholder="Price"
+            className="border-slate-400"
+            {...formik.getFieldProps('price')}
+            disabled={isFreeEvent}
           />
-          <div className="py-1 items-center flex px-2">
-            <Checkbox onChange={formik.handleChange} />
+          {formik.touched.price && formik.errors.price ? (
+            <div className="text-xs text-red-500 pt-4">
+              {formik.errors.price}
+            </div>
+          ) : null}
+          <div className="py-1 flex items-center pt-2">
+            <Checkbox
+              className="border-slate-400"
+              onCheckedChange={(e) => {
+                setFreeEvent(e);
+                if (e) {
+                  formik.setFieldValue('eventType', 'FREE');
+                } else {
+                  formik.setFieldValue('eventType', 'PAID');
+                }
+              }}
+            />
             <label
               htmlFor="price"
               className="ml-2 whitespace-nowrap leading-none text-xs peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-500"
@@ -191,19 +265,36 @@ export default function FormEvent() {
 
         {/* Description Event */}
         <Textarea
-          onChange={formik.handleChange}
           placeholder="Description"
+          type="text"
           name="description"
+          className="border-slate-400"
+          {...formik.getFieldProps('description')}
         />
+        {formik.touched.description && formik.errors.description ? (
+          <div className="text-xs text-red-500">
+            {formik.errors.description}
+          </div>
+        ) : null}
 
         {/* Image Event */}
         <Label htmlFor="picture" className="pb-0">
           Picture
         </Label>
-        <Input onChange={formik.handleChange} name="picture" type="file" />
+        <Input
+          name="picture"
+          type="file"
+          className="border-slate-400"
+          {...formik.getFieldProps('image')}
+        />
+        {formik.touched.image && formik.errors.image ? (
+          <div className="text-xs text-red-500">{formik.errors.image}</div>
+        ) : null}
 
         {/* Button */}
-        <Button type="submit">Submit</Button>
+        <Button type="submit" onClick={() => console.log('clicked!')}>
+          Submit
+        </Button>
       </form>
     </section>
   );

@@ -11,6 +11,7 @@ export class CategoryRouter {
   }
   private initializeRoutes(): void {
     this.router.post('/', this.categoryController.createCategory);
+    this.router.get('/', this.categoryController.getAllCategories);
   }
   public getRouter(): Router {
     return this.router;
