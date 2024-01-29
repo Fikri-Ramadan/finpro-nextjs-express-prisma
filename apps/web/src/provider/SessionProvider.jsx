@@ -1,5 +1,6 @@
 'use client';
 
+import usePoints from '@/hooks/usePoints';
 import useSession from '@/hooks/useSession';
 import { useCookies } from 'next-client-cookies';
 import { createContext, useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ const SessionProvider = ({ children }) => {
     username: '',
     email: '',
     role: '',
+    points: 0,
   });
   const [isAuthenticated, setAuthenticated] = useState(null);
 
@@ -18,6 +20,7 @@ const SessionProvider = ({ children }) => {
   const token = cookies.get('token');
 
   const { data, isLoading } = useSession();
+  const { data: points } = usePoints();
 
   useEffect(() => {
     if (data) {
@@ -27,6 +30,7 @@ const SessionProvider = ({ children }) => {
           username: data.username,
           email: data.email,
           role: data.role,
+          points: points,
         };
       });
       setAuthenticated(true);
@@ -35,10 +39,11 @@ const SessionProvider = ({ children }) => {
         username: '',
         email: '',
         role: '',
+        points: 0,
       });
       setAuthenticated(false);
     }
-  }, [data, token, setUserDetails]);
+  }, [data, token, setUserDetails, isLoading, points]);
 
   return (
     <SessionContext.Provider

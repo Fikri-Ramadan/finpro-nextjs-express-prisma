@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function ProductCategorySection({ apiEvents }) {
+  if (apiEvents)
+  
   return (
     <section className="md:px-36 md:py-8 bg-gray-50 text-gray-800">
       <div className=" container p-6 mx-auto space-y-8">
@@ -20,7 +22,7 @@ export default function ProductCategorySection({ apiEvents }) {
             <article key={i} className="">
               <div className="flex flex-col shadow-lg bg-gray-50 p-10 items-center border rounded-xl">
                 <a href="#">
-                  <Image src={event.image} alt="" width={100} height={100} />
+                  <Image src={event.image || '/banner.jpg'} alt="" width={100} height={100} />
                 </a>
               </div>
               <div className="flex flex-col flex-1 p-1">

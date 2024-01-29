@@ -77,6 +77,12 @@ export class UserController {
       const transactions = await prisma.transaction.findMany({
         where: {
           userId: req.user?.id,
+        },
+        include: {
+          event: true
+        },
+        orderBy: {
+          date: 'asc'
         }
       });
 
