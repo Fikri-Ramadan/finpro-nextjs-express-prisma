@@ -4,15 +4,17 @@ import { useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useRouter } from 'next/navigation';
+import { useDebounce } from 'use-debounce';
 
 export default function SearchBarEvent() {
   const searchRef = useRef();
   const router = useRouter();
+  const [debounce] = useDebounce(searchRef.current?.value, 100);
   const handleSearch = (e) => {
     e.preventDefault();
-    const encodedSearchQuery = encodeURI(searchRef.current.value);
+    const encodedSearchQuery = encodeURI(debounce);
     router.push(`/event/search?name=${encodedSearchQuery}`);
-    router.refresh();
+    // router.refresh();
   };
 
   return (
@@ -29,7 +31,7 @@ export default function SearchBarEvent() {
                 placeholder="Search Event..."
                 className="w-[400px]"
                 ref={searchRef}
-                onClick={() => handleSearch}
+                onChange={handleSearch}
               />
             </div>
             <div className="">
