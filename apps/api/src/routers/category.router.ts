@@ -17,6 +17,7 @@ export class CategoryRouter {
       this.authMiddleware.verifyToken,
       this.authMiddleware.adminOnly,
       this.categoryController.createCategory);
+    this.router.get('/', this.categoryController.getAllCategories);
   }
   public getRouter(): Router {
     return this.router;

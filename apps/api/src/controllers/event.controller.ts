@@ -22,7 +22,7 @@ export class EventController {
         description,
         availableSeat,
         eventType,
-        categoryId
+        categoryId,
       } = req.body;
       const newEvent = await prisma.event.create({
         data: {
@@ -36,6 +36,7 @@ export class EventController {
           description,
           availableSeat,
           eventType,
+          image: '/band.png',
         },
       });
 
@@ -63,6 +64,8 @@ export class EventController {
       });
       return res.status(200).json({ success: true, results: events });
     } catch (error) {
+      console.log(error);
+
       next(error);
     }
   }
@@ -72,6 +75,10 @@ export class EventController {
       const existingEvent = await prisma.event.findUnique({
         where: {
           id: req.params.id,
+        },
+        include: {
+          organizer: { select: { username: true, email: true } },
+          category: { select: { name: true } },
         },
       });
       if (!existingEvent) {
