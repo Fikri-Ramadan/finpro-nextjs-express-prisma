@@ -12,6 +12,7 @@ import { AuthRouter } from './routers/auth.router';
 import { UserRouter } from './routers/user.router';
 import { EventRouter } from './routers/event.router';
 import { CategoryRouter } from './routers/category.router';
+import { TransactionRouter } from './routers/transaction.router';
 
 export default class App {
   readonly app: Express;
@@ -60,6 +61,7 @@ export default class App {
     const eventRouter = new EventRouter();
     const categoryRouter = new CategoryRouter();
     // Ibnu Stop
+    const transactionsRouter = new TransactionRouter();
 
     this.app.get('/', (req: Request, res: Response) => {
       res.send(`Hello, Purwadhika Student !`);
@@ -71,6 +73,7 @@ export default class App {
     this.app.use('/api/events', eventRouter.getRouter());
     this.app.use('/api/categories', categoryRouter.getRouter());
     // Ibnu Stop
+    this.app.use('/api/transactions', transactionsRouter.getRouter());
   }
 
   public start(): void {

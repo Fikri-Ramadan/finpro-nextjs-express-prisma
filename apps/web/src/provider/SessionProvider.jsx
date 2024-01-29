@@ -10,14 +10,14 @@ const SessionProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState({
     username: '',
     email: '',
-    token: null,
-    isAuthenticated: false,
+    role: '',
   });
+  const [isAuthenticated, setAuthenticated] = useState(null);
 
   const cookies = useCookies();
   const token = cookies.get('token');
 
-  const { data } = useSession();
+  const { data, isLoading } = useSession();
 
   useEffect(() => {
     if (data) {
@@ -26,22 +26,24 @@ const SessionProvider = ({ children }) => {
           ...prev,
           username: data.username,
           email: data.email,
-          token: token,
-          isAuthenticated: true,
+          role: data.role,
         };
       });
+      setAuthenticated(true);
     } else {
       setUserDetails({
         username: '',
         email: '',
-        token: null,
-        isAuthenticated: false,
+        role: '',
       });
+      setAuthenticated(false);
     }
   }, [data, token, setUserDetails]);
 
   return (
-    <SessionContext.Provider value={{ userDetails, setUserDetails }}>
+    <SessionContext.Provider
+      value={{ userDetails, isAuthenticated, isLoading }}
+    >
       {children}
     </SessionContext.Provider>
   );

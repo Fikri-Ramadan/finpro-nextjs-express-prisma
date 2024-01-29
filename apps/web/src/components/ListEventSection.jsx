@@ -5,7 +5,6 @@ import customAxios  from '@/lib/axios';
 export default async function ListEventSection() {
   const res = await customAxios.get('/api/events');
   const events = await res?.data?.results;
-  console.log(events);
 
   return (
     <section className="md:px-36 md:py-8">
