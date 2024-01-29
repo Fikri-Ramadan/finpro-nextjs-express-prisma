@@ -22,7 +22,6 @@ import { useToast } from '../ui/use-toast';
 import customAxios from '@/lib/axios';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { useCookies } from 'next-client-cookies';
 
 export default function FormRegister() {
   const { toast } = useToast();
@@ -49,7 +48,7 @@ export default function FormRegister() {
       password: '',
       confirmPassword: '',
       referralCode: '',
-      role: 'USER',
+      role: '',
     },
     validationSchema: validateRegister,
     onSubmit: ({
@@ -96,7 +95,7 @@ export default function FormRegister() {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="w-full flex flex-col gap-4 lg:mt-16"
+      className="w-full flex flex-col gap-4"
     >
       <div className="space-y-2">
         <Input
@@ -215,7 +214,7 @@ export default function FormRegister() {
           </Button>
           <p className="text-sm font-medium mt-4 lg:hidden">
             if you already have an account you can{' '}
-            <Link href="/register" className="text-blue-700 font-semibold">
+            <Link href="/login" className="text-blue-700 font-semibold">
               login here !
             </Link>
           </p>

@@ -25,7 +25,6 @@ async function fetchSingleEvent(id) {
 }
 export default async function EventDetailsPage({ params }) {
   const event = await fetchSingleEvent(params.id);
-  console.log(event);
 
   return (
     <section className="my-16 mx-10">

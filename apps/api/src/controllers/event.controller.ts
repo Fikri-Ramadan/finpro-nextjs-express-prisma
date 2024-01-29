@@ -56,7 +56,6 @@ export class EventController {
         };
       }
       const events = await prisma.event.findMany({ ...payload });
-      console.log(events);
 
       return res.status(200).json({ success: true, results: events });
     } catch (error) {

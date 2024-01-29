@@ -86,7 +86,6 @@ export class AuthController {
 
           await tx.referralUsage.create({
             data: {
-              expiryDate: threeMonthExpiry,
               referralCodeId: referrer.id,
               newUserId: newUser.id,
             }
@@ -97,6 +96,13 @@ export class AuthController {
               expiryDate: threeMonthExpiry,
               discountPercentage: 10,
               userId: newUser.id,
+            }
+          });
+
+          await tx.point.create({
+            data: {
+              expiryDate: threeMonthExpiry,
+              userId: referrer.userId
             }
           });
         }

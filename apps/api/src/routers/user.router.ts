@@ -15,12 +15,21 @@ export class UserRouter {
   }
 
   private initializeRoutes() {
+    this.router.get('/',
+      this.authMiddleware.verifyToken,
+      this.userController.getUsers);
+
     this.router.get('/points',
       this.authMiddleware.verifyToken,
       this.userController.getPoints);
-    this.router.get('/', 
-    this.authMiddleware.verifyToken,
-    this.userController.getUsers)
+
+    this.router.get('/coupons',
+      this.authMiddleware.verifyToken,
+      this.userController.getCoupons);
+
+    this.router.get('/transactions',
+      this.authMiddleware.verifyToken,
+      this.userController.getTransactions);
   }
 
   getRouter() {

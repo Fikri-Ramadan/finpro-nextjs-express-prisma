@@ -9,25 +9,23 @@ interface IGetUserInfoRequest extends Request {
 export class UserController {
   async getPoints(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
     try {
-      const totalUsedReferral = await prisma.referralUsage.findMany({
+      const points = await prisma.point.findMany({
         where: {
-          referralCode: {
-            userId: req.user?.id,
+          userId: req.user?.id,
+          expiryDate: {
+            gt: new Date()
           },
-          AND: {
-            expiryDate: {
-              gt: new Date(),
-            },
-            usageDate: null,
-          },
-        },
+          NOT: {
+            point: 0
+          }
+        }
       });
 
-      const points = totalUsedReferral.length * 10000;
+      const totalPoints = points.reduce((acc, curr) => acc + curr.point, 0);
 
       return res.status(200).json({
         success: true,
-        results: { points },
+        results: totalPoints,
       });
     } catch (error) {
       next(error);
@@ -45,6 +43,46 @@ export class UserController {
       return res.status(200).json({
         success: true,
         results: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getCoupons(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const coupons = await prisma.coupon.findMany({
+        where: {
+          AND: {
+            userId: req.user?.id,
+            expiryDate: {
+              gt: new Date(),
+            },
+            transactionId: null
+          }
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        results: coupons,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getTransactions(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const transactions = await prisma.transaction.findMany({
+        where: {
+          userId: req.user?.id,
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        results: transactions
       });
     } catch (error) {
       next(error);

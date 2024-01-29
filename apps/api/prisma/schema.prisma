@@ -21,11 +21,62 @@ model User {
   events        Event[]
   transactions  Transaction[]
   coupons       Coupon[]
-  
+  points        Point[]
   referralCode  ReferralCode?
   referrerUsage ReferralUsage?
 
   @@map("users")
+}
+
+model ReferralCode {
+  id            String          @id @default(cuid())
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        String          @unique
+  code          String          @unique
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  referralUsage ReferralUsage[]
+
+  @@map("referralCodes")
+}
+
+model ReferralUsage {
+  id             String       @id @default(cuid())
+  user           User         @relation(fields: [newUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  newUserId      String       @unique
+  referralCode   ReferralCode @relation(fields: [referralCodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  referralCodeId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("referralUsages")
+}
+
+model Coupon {
+  id                 String       @id @default(cuid())
+  user               User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId             String
+  discountPercentage Int?
+  maxDiscountPrice   Int?
+  expiryDate         DateTime
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  transaction        Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  transactionId      String?      @unique
+
+  @@map("Coupons")
+}
+
+model Point {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String
+  point      Int      @default(10000)
+  expiryDate DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("Points")
 }
 
 model Event {
@@ -41,14 +92,13 @@ model Event {
   location        String
   description     String
   availableSeat   Int
-  image           String
+  image           String?
   eventType       EventType
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   transactions    Transaction[]
   promotions      Promotion[]
   reviews         Review[]
-  
 
   @@map("events")
 }
@@ -103,47 +153,6 @@ model Review {
   updatedAt DateTime @updatedAt
 
   @@map("reviews")
-}
-
-model ReferralCode {
-  id            String          @id @default(cuid())
-  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId        String          @unique
-  code          String          @unique
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  referralUsage ReferralUsage[]
-
-  @@map("referralCodes")
-}
-
-model ReferralUsage {
-  id             String       @id @default(cuid())
-  user           User         @relation(fields: [newUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  newUserId      String       @unique
-  referralCode   ReferralCode @relation(fields: [referralCodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  referralCodeId String
-  usageDate      DateTime?
-  expiryDate     DateTime
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-
-  @@map("referralUsages")
-}
-
-model Coupon {
-  id                 String       @id @default(cuid())
-  user               User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId             String
-  discountPercentage Int?
-  maxDiscountPrice   Int?
-  expiryDate         DateTime
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
-  transaction        Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  transactionId      String?      @unique
-
-  @@map("Coupons")
 }
 
 enum Role {

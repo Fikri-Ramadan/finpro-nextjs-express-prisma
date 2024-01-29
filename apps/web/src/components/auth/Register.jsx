@@ -6,7 +6,7 @@ import FormRegister from './FormRegister';
 
 export default function Register() {
   return (
-    <div className="max-w-7xl mx-auto flex items-center justify-center h-[800px] lg:h-[700px] pt-24 pb-48 px-12">
+    <div className="max-w-7xl mx-auto flex items-center justify-center h-[800px] lg:h-[700px] pt-16 pb-48 px-12">
       <div className="hidden lg:block relative w-1/3">
         <p className="text-4xl font-bold tracking-wide mb-2">Sign up</p>
         <p className="text-4xl font-bold tracking-wide">To Ticketing App</p>
