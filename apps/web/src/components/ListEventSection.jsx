@@ -1,12 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import customAxios  from '@/lib/axios';
 
-export default async function ListEventSection() {
-  const res = await customAxios.get('/api/events');
-  const events = await res?.data?.results;
-  console.log(events);
-
+export default function ListEventSection({ apiEvents }) {
   return (
     <section className="md:px-36 md:py-8">
       <div className="px-6 mx-auto flex flex-row justify-between items-center">
@@ -15,7 +12,7 @@ export default async function ListEventSection() {
       </div>
       <div className="p-6 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
         {/* Start Product */}
-        {events.map((event, i) => (
+        {apiEvents.map((event, i) => (
           <Link href={`/event/${event.id}`} key={i}>
             <article className="">
               <div className="flex flex-col shadow-lg bg-gray-50 p-4 items-center border rounded-xl">
