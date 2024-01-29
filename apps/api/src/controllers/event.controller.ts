@@ -46,7 +46,21 @@ export class EventController {
   }
   async getAllEvent(req: Request, res: Response, next: NextFunction) {
     try {
-      const events = await prisma.event.findMany();
+      const payload: any = {
+        where: {}
+      };
+
+      if (req.query.name) {
+        payload.where.name = {
+          contains: req.query.name
+        };
+      }
+
+      console.log(payload);
+
+      const events = await prisma.event.findMany({
+        ...payload
+      });
       return res.status(200).json({ success: true, results: events });
     } catch (error) {
       next(error);

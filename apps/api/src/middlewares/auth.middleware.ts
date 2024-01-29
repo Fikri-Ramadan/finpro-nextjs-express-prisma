@@ -38,6 +38,7 @@ export class AuthMiddleware {
       return res.status(500).json({ error: (error as Error).message });
     }
   }
+
   async organizerOnly(
     req: IGetUserInfoRequest,
     res: Response,
@@ -45,6 +46,20 @@ export class AuthMiddleware {
   ) {
     try {
       if (req.user?.role !== 'ORGANIZER') {
+        return res.status(403).json({
+          success: false,
+          message: 'forbidden access',
+        });
+      }
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async adminOnly(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      if (req.user?.role !== 'ADMIN') {
         return res.status(403).json({
           success: false,
           message: 'forbidden access',

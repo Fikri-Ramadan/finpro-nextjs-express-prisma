@@ -9,25 +9,23 @@ interface IGetUserInfoRequest extends Request {
 export class UserController {
   async getPoints(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
     try {
-      const totalUsedReferral = await prisma.referralUsage.findMany({
+      const points = await prisma.point.findMany({
         where: {
-          AND: {
-            referralCode: {
-              userId: req.user?.id,
-            },
-            expiryDate: {
-              gt: new Date(),
-            },
-            usageDate: null,
+          userId: req.user?.id,
+          expiryDate: {
+            gt: new Date()
           },
-        },
+          NOT: {
+            point: 0
+          }
+        }
       });
 
-      const points = totalUsedReferral.length * 10000;
+      const totalPoints = points.reduce((acc, curr) => acc + curr.point, 0);
 
       return res.status(200).json({
         success: true,
-        results: points,
+        results: totalPoints,
       });
     } catch (error) {
       next(error);
