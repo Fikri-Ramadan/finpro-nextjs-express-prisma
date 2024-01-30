@@ -24,10 +24,9 @@ import useCoupons from '@/hooks/useCoupons';
 import useAuth from '@/hooks/useAuth';
 import useCreateTransaction from '@/hooks/useCreateTransaction';
 import { Loader2 } from 'lucide-react';
-import { useToast } from './ui/use-toast'
+import { useToast } from './ui/use-toast';
 
 export default function CheckoutEvent({ id }) {
-  
   const { toast } = useToast();
   const { data: coupons, isLoading: couponLoading } = useCoupons();
   const { userDetails } = useAuth();
@@ -36,7 +35,26 @@ export default function CheckoutEvent({ id }) {
   const { mutate, isPending } = useCreateTransaction();
   const [usedPoint, setUsedPoint] = useState(false);
   const [coupon, setCoupon] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(data?.price);
 
+  useEffect(() => {
+    if (!isLoading && !couponLoading) {
+      if (!!coupon) {
+        setTotalPrice((prev) => {
+          return data.price - (data.price * coupon.discountPercentage) / 100;
+        });
+      }
+      if (usedPoint) {
+        setTotalPrice((prev) => {
+          if (prev - points <= 0) {
+            return 0;
+          } else {
+            return prev - points;
+          }
+        });
+      }
+    }
+  }, [coupon, usedPoint, points, couponLoading, isLoading, data.price]);
 
   const handleCheckout = () => {
     mutate(
@@ -85,14 +103,25 @@ export default function CheckoutEvent({ id }) {
                 <span className={(coupon || usedPoint) && 'line-through'}>
                   Rp. {data.price || 'FREE'}
                 </span>
-                {(!!coupon || usedPoint) && (
+                {/* {(!!coupon || usedPoint) && (
                   <span className="pl-2">
                     Rp.{' '}
-                    {data.price -
+                    {(data.price -
                       (!!coupon &&
                         (data.price * coupon.discountPercentage) / 100) -
-                      (usedPoint && points)}
+                      (usedPoint && points)) }
                   </span>
+                )} */}
+                {/* {!!coupon ? (
+                  <span className="pl-2">
+                    {data.price -
+                      (data.price * coupon.discountPercentage) / 100}
+                  </span>
+                ) : (
+                  <span></span>
+                )} */}
+                {(!!coupon || usedPoint) && (
+                  <span className="pl-2">{totalPrice}</span>
                 )}
               </span>
             </div>
