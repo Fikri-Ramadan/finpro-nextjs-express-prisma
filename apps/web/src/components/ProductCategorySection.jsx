@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/pagination';
 
 export default function ProductCategorySection({ apiEvents }) {
-  if (apiEvents)
-  
+  console.log(apiEvents);
+
   return (
     <section className="md:px-36 md:py-8 bg-gray-50 text-gray-800">
       <div className=" container p-6 mx-auto space-y-8">
@@ -29,16 +29,17 @@ export default function ProductCategorySection({ apiEvents }) {
 
           {apiEvents.map((event, i) => (
             <article key={i} className="">
-              <div className="flex flex-col shadow-lg bg-gray-50 p-10 items-center border rounded-xl">
-                <a href="#">
+              <Link href={`/event/${event.id}`}>
+                <div className="flex flex-col shadow-lg bg-gray-50 items-center border rounded-xl">
                   <Image
-                    src={event.image || '/banner.jpg'}
+                    src={'/banner.jpg'}
                     alt=""
-                    width={100}
-                    height={100}
+                    width={500}
+                    height={500}
+                    className="object-contain border rounded-xl"
                   />
-                </a>
-              </div>
+                </div>
+              </Link>
               <div className="flex flex-col flex-1 p-1">
                 <h3 className="flex-1 py-2 text-base font-semibold leadi uppercase">
                   {event.name}

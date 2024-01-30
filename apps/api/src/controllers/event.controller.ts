@@ -60,7 +60,7 @@ export class EventController {
         where: {},
         orderBy: {
           createdAt: 'desc'
-        }
+        },
         skip,
         take,
       };
