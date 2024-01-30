@@ -20,7 +20,7 @@ export default function AllOrders() {
   }
 
   return (
-    <Table>
+    <Table className='mt-16'>
       <TableCaption>A list of all events recent transactions.</TableCaption>
       <TableHeader>
         <TableRow>
