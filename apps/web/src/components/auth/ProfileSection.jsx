@@ -1,6 +1,5 @@
 'use client';
 
-import useSession from '@/hooks/useSession';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -16,7 +15,7 @@ export default function ProfileSection() {
       {isLoading ? (
         <Loader2 className="w-4 h-4 animate-spin" />
       ) : isAuthenticated ? (
-        <ProfileDropDown username={userDetails?.username} />
+        <ProfileDropDown username={userDetails?.username} points={userDetails?.points} />
       ) : (
         <Link
           href="/login"

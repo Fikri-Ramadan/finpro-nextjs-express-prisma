@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/dialog';
 import { useCookies } from 'next-client-cookies';
 import { useRouter } from 'next/navigation';
-import useSession from '@/hooks/useSession';
 
 export function DialogLogout() {
   const cookies = useCookies();
@@ -24,9 +23,9 @@ export function DialogLogout() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className='flex items-center pl-[10px] cursor-pointer'>
+        <div className='flex items-center pl-[8px] py-[4px] cursor-pointer'>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+          <span className='text-sm'>Log out</span>
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
@@ -38,8 +37,9 @@ export function DialogLogout() {
           <Button
             onClick={() => {
               cookies.remove('token');
-              router.push('/login');
-              router.refresh();
+              // router.push('/login');
+              // router.refresh();
+              location.reload();
             }}
           >
             Yes!

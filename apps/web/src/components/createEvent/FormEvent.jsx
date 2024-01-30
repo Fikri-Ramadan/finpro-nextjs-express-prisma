@@ -15,7 +15,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useToast } from '../ui/use-toast';
 import { validateEvent } from '@/lib/validation';
 import { useState } from 'react';
-import useCategory from '@/hooks/useCategory';
+import useCategories from '@/hooks/useCategories';
 import {
   Select,
   SelectContent,
@@ -34,7 +34,7 @@ export default function FormEvent() {
   const cookies = useCookies();
   const token = cookies.get('token');
 
-  const { data: categories, isLoading: loadingCategories } = useCategory();
+  const { data: categories, isLoading: loadingCategories } = useCategories();
 
   const { mutate } = useMutation({
     mutationFn: async ({
@@ -117,11 +117,12 @@ export default function FormEvent() {
             router.refresh();
           },
           onError: (error) => {
-            console.log(error)
+            console.log(error);
             toast({
               variant: 'destructive',
               title: 'Failed to create event',
-              description: error.response?.data?.error || error.response?.data?.message,
+              description:
+                error.response?.data?.error || error.response?.data?.message,
             });
           },
         },

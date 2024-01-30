@@ -15,11 +15,7 @@ const linkList = [
   {
     name: 'Event',
     href: '/event',
-  },
-  {
-    name: 'Create Event',
-    href: '/event/create',
-  },
+  }
 ];
 
 export const NavbarSection = () => {
