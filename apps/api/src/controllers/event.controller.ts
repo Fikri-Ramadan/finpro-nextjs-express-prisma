@@ -47,8 +47,19 @@ export class EventController {
   }
   async getAllEvent(req: Request, res: Response, next: NextFunction) {
     try {
+      let { page, perPage } = req.query;
+      let skip = 0;
+      let take = 5;
+      if (perPage && !isNaN(Number(perPage))) {
+        take = Number(perPage);
+      }
+      if (page && !isNaN(Number(page))) {
+        skip = take * (Number(page) - 1);
+      }
       const payload: any = {
         where: {},
+        skip,
+        take,
       };
       if (req.query.name) {
         payload.where.name = {
