@@ -17,7 +17,7 @@ import useAuth from '@/hooks/useAuth';
 import Link from 'next/link';
 
 export default function ProfileDropDown({ username, points }) {
-  // const { userDetails } = useAuth();
+  const { userDetails } = useAuth();
 
   return (
     <DropdownMenu>
@@ -42,12 +42,17 @@ export default function ProfileDropDown({ username, points }) {
             </Link>
           </DropdownMenuItem>
         )} */}
-        <DropdownMenuItem>
-          <Link href={'/dashboard'} className='flex justify-between items-center'>
-            <LayoutDashboard className="mr-2 h-4 w-4" />
-            <span>Dashboard</span>
-          </Link>
-        </DropdownMenuItem>
+        {userDetails.role === 'ORGANIZER' && (
+          <DropdownMenuItem>
+            <Link
+              href={'/dashboard'}
+              className="flex justify-between items-center"
+            >
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <Banknote className="mr-2 h-4 w-4" />
           <span>Points</span>

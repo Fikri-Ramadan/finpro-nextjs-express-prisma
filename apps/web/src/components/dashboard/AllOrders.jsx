@@ -25,7 +25,7 @@ export default function AllOrders() {
       <TableHeader>
         <TableRow>
           <TableHead>No.</TableHead>
-          <TableHead>Customer Name</TableHead>
+          <TableHead>Customer Email</TableHead>
           <TableHead>Event Name</TableHead>
           <TableHead>Amount Paid</TableHead>
           <TableHead>Point Used</TableHead>

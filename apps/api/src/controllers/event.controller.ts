@@ -49,6 +49,9 @@ export class EventController {
     try {
       const payload: any = {
         where: {},
+        orderBy: {
+          createdAt: 'desc'
+        }
       };
       if (req.query.name) {
         payload.where.name = {
@@ -94,6 +97,9 @@ export class EventController {
       const events = await prisma.event.findMany({
         where: {
           organizerUserId: req.user?.id
+        },
+        orderBy: {
+          createdAt: 'desc'
         }
       });
 
