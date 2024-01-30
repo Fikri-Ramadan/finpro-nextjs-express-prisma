@@ -18,6 +18,11 @@ export class TransactionRouter {
     this.router.post('/',
       this.authMiddlaware.verifyToken,
       this.transactionController.createTransaction);
+
+    this.router.get('/organizer',
+      this.authMiddlaware.verifyToken,
+      this.authMiddlaware.organizerOnly,
+      this.transactionController.getTransactionByOrganizer);
   }
 
   getRouter() {

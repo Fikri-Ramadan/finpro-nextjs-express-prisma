@@ -230,4 +230,30 @@ export class TransactionController {
       next(error);
     }
   }
+
+  async getTransactionByOrganizer(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const transactions = await prisma.transaction.findMany({
+        where: {
+          event: {
+            organizerUserId: req.user?.id,
+          }
+        },
+        include: {
+          event: true,
+          user: true,
+        },
+        orderBy: {
+          date: 'desc'
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        results: transactions,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

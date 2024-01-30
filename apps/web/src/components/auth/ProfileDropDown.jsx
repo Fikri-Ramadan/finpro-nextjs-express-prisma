@@ -1,4 +1,4 @@
-import { Banknote, CalendarPlus, User } from 'lucide-react';
+import { Banknote, CalendarPlus, LayoutDashboard, User } from 'lucide-react';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import {
   DropdownMenu,
@@ -17,7 +17,7 @@ import useAuth from '@/hooks/useAuth';
 import Link from 'next/link';
 
 export default function ProfileDropDown({ username, points }) {
-  const { userDetails } = useAuth();
+  // const { userDetails } = useAuth();
 
   return (
     <DropdownMenu>
@@ -31,7 +31,7 @@ export default function ProfileDropDown({ username, points }) {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Hello, {username}! 👋</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {userDetails.role === 'ORGANIZER' && (
+        {/* {userDetails.role === 'ORGANIZER' && (
           <DropdownMenuItem>
             <Link
               href={'/event/create'}
@@ -41,7 +41,13 @@ export default function ProfileDropDown({ username, points }) {
               <span>Create Event</span>
             </Link>
           </DropdownMenuItem>
-        )}
+        )} */}
+        <DropdownMenuItem>
+          <Link href={'/dashboard'} className='flex justify-between items-center'>
+            <LayoutDashboard className="mr-2 h-4 w-4" />
+            <span>Dashboard</span>
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <Banknote className="mr-2 h-4 w-4" />
           <span>Points</span>
