@@ -12,7 +12,7 @@ export default function SearchBarEvent() {
   const [debounce] = useDebounce(searchRef.current?.value, 100);
   const handleSearch = (e) => {
     e.preventDefault();
-    const encodedSearchQuery = encodeURI(debounce);
+    const encodedSearchQuery = encodeURI(searchRef.current?.value);
     router.push(`/event/search?name=${encodedSearchQuery}`);
     // router.refresh();
   };
