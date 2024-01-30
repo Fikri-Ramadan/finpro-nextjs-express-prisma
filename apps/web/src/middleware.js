@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getCookies } from 'next-client-cookies/server';
 
-const protectedRoutes = ['/example'];
+const protectedRoutes = ['/example', '/event/create'];
+const organizerOnly = ['/event/create'];
 
 export default async function middleware(req) {
   if (req.nextUrl.pathname.includes('/login')) {
@@ -50,6 +51,15 @@ export default async function middleware(req) {
       });
 
       if (!res.ok) {
+        return NextResponse.redirect(absoluteURL.toString());
+      }
+
+      const { results } = await res.json();
+
+      if (
+        organizerOnly.includes(req.nextUrl.pathname) &&
+        results.role !== 'ORGANIZER'
+      ) {
         return NextResponse.redirect(absoluteURL.toString());
       }
 
