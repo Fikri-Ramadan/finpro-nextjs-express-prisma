@@ -20,7 +20,12 @@ export default function ProductCategorySection({ apiEvents }) {
             <article key={i} className="">
               <div className="flex flex-col shadow-lg bg-gray-50 p-10 items-center border rounded-xl">
                 <a href="#">
-                  <Image src={event.image} alt="" width={100} height={100} />
+                  <Image
+                    src={event.image || '/banner.jpg'}
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
                 </a>
               </div>
               <div className="flex flex-col flex-1 p-1">

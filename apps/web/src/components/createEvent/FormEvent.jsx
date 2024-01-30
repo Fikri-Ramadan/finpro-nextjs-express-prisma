@@ -117,11 +117,12 @@ export default function FormEvent() {
             router.refresh();
           },
           onError: (error) => {
-            console.log(error)
+            console.log(error);
             toast({
               variant: 'destructive',
               title: 'Failed to create event',
-              description: error.response?.data?.error || error.response?.data?.message,
+              description:
+                error.response?.data?.error || error.response?.data?.message,
             });
           },
         },
@@ -131,6 +132,9 @@ export default function FormEvent() {
 
   return (
     <section className="py-8 full flex flex-col gap-4 w-full justify-center items-center">
+      <span className="text-wrap font-bold  text-center sm:left">
+        CREATE EVENT
+      </span>
       <form
         onSubmit={formik.handleSubmit}
         className="md:w-1/3 flex flex-col gap-4"

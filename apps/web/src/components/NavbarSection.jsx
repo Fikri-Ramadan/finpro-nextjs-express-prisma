@@ -27,7 +27,7 @@ export const NavbarSection = () => {
 
   return (
     <section>
-      <nav className="bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200">
+      <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 ">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:px-14 px-4 py-2">
           <Link href="/" className="flex items-center space-x-3 ">
             <span className="font-bold">Brand</span>
