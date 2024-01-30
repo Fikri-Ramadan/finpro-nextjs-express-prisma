@@ -1,4 +1,4 @@
-import  {EventController}  from '../controllers/event.controller';
+import { EventController } from '../controllers/event.controller';
 import { AuthMiddleware } from '../middlewares/auth.middleware';
 import { Router } from 'express';
 
@@ -19,7 +19,13 @@ export class EventRouter {
       this.authMiddleware.organizerOnly,
       this.eventController.createEvent,
     );
+
     this.router.get('/', this.eventController.getAllEvent);
+
+    this.router.get('/organizer',
+      this.authMiddleware.verifyToken,
+      this.authMiddleware.organizerOnly,
+      this.eventController.getEventByOrganizer);
 
     this.router.get('/:id', this.eventController.getEventById);
   }

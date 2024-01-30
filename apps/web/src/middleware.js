@@ -1,8 +1,19 @@
 import { NextResponse } from 'next/server';
 import { getCookies } from 'next-client-cookies/server';
 
-const protectedRoutes = ['/example', '/event/create', '/dashboard'];
-const organizerOnly = ['/event/create', '/dashboard'];
+const protectedRoutes = [
+  '/example',
+  '/event/create',
+  '/dashboard',
+  '/dashboard/create',
+  '/dashboard/orders',
+];
+const organizerOnly = [
+  '/event/create',
+  '/dashboard',
+  '/dashboard/create',
+  '/dashboard/orders',
+];
 
 export default async function middleware(req) {
   if (req.nextUrl.pathname.includes('/login')) {

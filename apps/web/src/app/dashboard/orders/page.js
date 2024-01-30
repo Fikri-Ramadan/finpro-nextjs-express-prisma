@@ -1,7 +1,7 @@
-import EventList from '@/components/dashboard/EventList';
+import AllOrders from '@/components/dashboard/AllOrders';
 import Sidebar from '@/components/dashboard/Sidebar';
 
-export default function DashboardPage() {
+export default function OrderPage() {
   return (
     <div className="flex min-h-screen">
       {/* sidebar */}
@@ -10,7 +10,7 @@ export default function DashboardPage() {
       </div>
       {/* main */}
       <div className="max-w-4/5">
-        <EventList />
+        <AllOrders />
       </div>
     </div>
   );

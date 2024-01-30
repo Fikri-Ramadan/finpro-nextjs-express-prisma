@@ -41,5 +41,6 @@ export const validateEvent = Yup.object({
   startEvent: Yup.date().required('Start event is required'),
   endEvent: Yup.date().required('End event is required'),
   availableSeat: Yup.number().required('Available seat event is required'),
-  image: Yup.string().required('Image event is required'),
+  // image: Yup.string().required('Image event is required'),
+  image: Yup.string(),
 });
