@@ -1,4 +1,4 @@
-import { Banknote, CalendarPlus, User } from 'lucide-react';
+import { Banknote, CalendarPlus, LayoutDashboard, User } from 'lucide-react';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import {
   DropdownMenu,
@@ -42,6 +42,12 @@ export default function ProfileDropDown({ username, points }) {
             </Link>
           </DropdownMenuItem>
         )}
+        <DropdownMenuItem>
+          <Link href={'/dashboard'} className='flex justify-between items-center'>
+            <LayoutDashboard className="mr-2 h-4 w-4" />
+            <span>Dashboard</span>
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <Banknote className="mr-2 h-4 w-4" />
           <span>Points</span>
