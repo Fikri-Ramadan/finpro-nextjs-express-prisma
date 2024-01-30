@@ -82,7 +82,7 @@ export class UserController {
           event: true
         },
         orderBy: {
-          date: 'asc'
+          date: 'desc'
         }
       });
 
