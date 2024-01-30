@@ -11,6 +11,8 @@ import {
 } from '@/components/ui/pagination';
 
 export default function ProductCategorySection({ apiEvents }) {
+  if (apiEvents)
+  
   return (
     <section className="md:px-36 md:py-8 bg-gray-50 text-gray-800">
       <div className=" container p-6 mx-auto space-y-8">

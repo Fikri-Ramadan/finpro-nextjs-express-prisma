@@ -12,11 +12,11 @@ export default function ListEventSection({ apiEvents }) {
       <section className="md:px-36 md:py-8">
         <div className="px-6 mx-auto flex flex-row justify-between items-center">
           <span className="font-bold">Event List</span>
-          <p className="text-xs">View All (99)</p>
+          <p className="text-xs">View All ({apiEvents?.length || 0})</p>
         </div>
         <div className="p-6 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Start Product */}
-          {apiEvents.map((event, i) => (
+          {apiEvents?.map((event, i) => (
             <Link href={`/event/${event.id}`} key={i}>
               <article className="">
                 <div className="flex flex-col shadow-lg bg-gray-50 p-4 items-center border rounded-xl">

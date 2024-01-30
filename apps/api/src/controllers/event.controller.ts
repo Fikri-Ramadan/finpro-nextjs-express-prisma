@@ -58,6 +58,9 @@ export class EventController {
       }
       const payload: any = {
         where: {},
+        orderBy: {
+          createdAt: 'desc'
+        }
         skip,
         take,
       };
@@ -87,6 +90,7 @@ export class EventController {
           category: { select: { name: true } },
         },
       });
+
       if (!existingEvent) {
         return res
           .status(404)
@@ -94,6 +98,26 @@ export class EventController {
       }
 
       return res.status(200).json({ success: true, results: existingEvent });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getEventByOrganizer(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const events = await prisma.event.findMany({
+        where: {
+          organizerUserId: req.user?.id
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        results: events,
+      });
     } catch (error) {
       next(error);
     }

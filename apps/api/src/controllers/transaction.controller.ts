@@ -49,6 +49,17 @@ export class TransactionController {
             }
           });
 
+          await tx.event.update({
+            where: {
+              id: trans.eventId
+            },
+            data: {
+              availableSeat: {
+                decrement: 1
+              }
+            }
+          });
+
           return trans;
         } else if (existingEvent.eventType === 'PAID') {
           const trans = await tx.transaction.create({
@@ -185,6 +196,17 @@ export class TransactionController {
 
           }
 
+          await tx.event.update({
+            where: {
+              id: trans.eventId
+            },
+            data: {
+              availableSeat: {
+                decrement: 1
+              }
+            }
+          });
+
           return await tx.transaction.update({
             where: {
               id: trans.id,
@@ -205,6 +227,32 @@ export class TransactionController {
         return res.status(400).json({ success: false, message: error.message });
       }
 
+      next(error);
+    }
+  }
+
+  async getTransactionByOrganizer(req: IGetUserInfoRequest, res: Response, next: NextFunction) {
+    try {
+      const transactions = await prisma.transaction.findMany({
+        where: {
+          event: {
+            organizerUserId: req.user?.id,
+          }
+        },
+        include: {
+          event: true,
+          user: true,
+        },
+        orderBy: {
+          date: 'desc'
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        results: transactions,
+      });
+    } catch (error) {
       next(error);
     }
   }

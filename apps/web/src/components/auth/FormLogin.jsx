@@ -48,6 +48,7 @@ export default function FormLogin() {
 
             router.push('/');
             router.refresh();
+            location.reload();
           },
           onError: (error) => {
             toast({
