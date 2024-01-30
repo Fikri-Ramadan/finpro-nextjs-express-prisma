@@ -1,61 +1,34 @@
-import Link from 'next/link';
-import {
-  RiFacebookCircleFill,
-  RiGithubFill,
-  RiInstagramFill,
-  RiTwitterXFill,
-} from 'react-icons/ri';
-
 export const Footer = () => {
   return (
-    <section className="px-4 py-2 md:px-36 md:py-8 pb-8 flex items-center  bg-gray-400 w-auto">
-      <div className="flex flex-row justify-center gap-20 md:gap-40 ">
-        <div className="flex flex-col gap-3 items-center justify-center">
-          <span className="font-bold">BRAND LOGO</span>
-          <h1>Social Media</h1>
-          <div className="flex flex-row gap-3">
-            <Link href="/">
-              <RiInstagramFill />
-            </Link>
-            <Link href="/">
-              <RiGithubFill />
-            </Link>
-            <Link href="/">
-              <RiTwitterXFill />
-            </Link>
-            <Link href="/">
-              <RiFacebookCircleFill />
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <h1 className="font-bold">Event</h1>
-          <div className="text-sm flex flex-col">
-            <p>Lorem</p>
-            <p>Ipsum</p>
-            <p>Dolor</p>
-            <p>Sit</p>
-            <p>Amet</p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <h1 className="font-bold">Location</h1>
-          <div className="text-sm flex flex-col">
-            <p>Jakarta</p>
-            <p>Bandung</p>
-            <p>Yogyakarta</p>
-            <p>Malang</p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <h1 className="font-bold">Quick Links</h1>
-          <div className="text-sm flex flex-col">
-            <p>Home</p>
-            <p>Event Lists</p>
-            <p>About Us</p>
-          </div>
-        </div>
-      </div>
+    <section>
+      <footer className=" bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6">
+        <span className="text-sm text-gray-500 sm:text-center ">
+          © 2023 <a className="hover:underline">Brand™</a>. All Rights
+          Reserved.
+        </span>
+        <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+          <li>
+            <a href="/" className="hover:underline me-4 md:me-6">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/event" className="hover:underline me-4 md:me-6">
+              Event
+            </a>
+          </li>
+          <li>
+            <a href="/event/create" className="hover:underline me-4 md:me-6">
+              Create Event
+            </a>
+          </li>
+          <li>
+            <a href="/" className="hover:underline">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </footer>
     </section>
   );
 };
