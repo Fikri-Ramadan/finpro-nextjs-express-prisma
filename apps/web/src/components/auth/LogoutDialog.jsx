@@ -37,8 +37,9 @@ export function DialogLogout() {
           <Button
             onClick={() => {
               cookies.remove('token');
-              router.push('/login');
-              router.refresh();
+              // router.push('/login');
+              // router.refresh();
+              location.reload();
             }}
           >
             Yes!

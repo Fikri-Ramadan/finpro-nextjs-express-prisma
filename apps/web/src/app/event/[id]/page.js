@@ -1,5 +1,10 @@
-import customAxios from '@/lib/axios'; 
+import CheckoutButton from '@/components/CheckoutButton';
+import CheckoutEvent from '@/components/CheckoutEvent';
+import { Button } from '@/components/ui/button';
+import customAxios from '@/lib/axios';
 import axios from 'axios';
+import { Armchair } from 'lucide-react';
+import { getCookies } from 'next-client-cookies/server';
 import Image from 'next/image';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
@@ -11,6 +16,7 @@ async function fetchSingleEvent(id) {
       name: res?.data?.results.name,
       location: res?.data?.results.location,
       price: res?.data?.results.price,
+      availableSeat: res?.data?.results?.availableSeat,
       description: res?.data?.results.description,
       eventType: res?.data?.results.eventType,
       category: res?.data?.results.category.name,
@@ -25,6 +31,8 @@ async function fetchSingleEvent(id) {
 }
 export default async function EventDetailsPage({ params }) {
   const event = await fetchSingleEvent(params.id);
+  const cookies = getCookies();
+  const token = cookies.get('token');
 
   return (
     <section className="my-16 mx-10">
@@ -57,14 +65,17 @@ export default async function EventDetailsPage({ params }) {
               </p>
             </div>
           </div>
-          {/* Checkout Button */}
           <div className="flex flex-col gap-5">
             <div className=" flex gap-2 md:gap-3 items-center">
               <div className='"mx-2 flex items-center"'>
                 <FaCalendarAlt />
               </div>
               <div className="text-base lg:text-lg flex flex-wrap items-center justify-center">
-                <p>{event?.startDate}</p>
+                <p>{new Date(event?.startDate).toLocaleString('en-US')}</p>
+              </div>
+              <span>-</span>
+              <div className="text-base lg:text-lg flex flex-wrap items-center justify-center">
+                <p>{new Date(event?.endDate).toLocaleString('en-US')}</p>
               </div>
             </div>
             <div className="text-base flex items-center gap-2 md:gap-3">
@@ -75,14 +86,23 @@ export default async function EventDetailsPage({ params }) {
                 {event?.location}
               </p>
             </div>
+            <div className="text-base flex items-center gap-2 md:gap-3">
+              <div className=" flex items-center justify-center">
+                <Armchair className="w-5 h-5" />
+              </div>
+              <p className="text-base flex-wrap">{event?.availableSeat} left</p>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="font-bold text-gray-600">Whatt You'll Learn:</p>
+            <p className="font-bold text-gray-600">Whatt You&apos;ll Learn:</p>
             <p className="text-base md:text-lg truncate">
               {event?.description}
             </p>
           </div>
+
+          {/* Checkout Button */}
+          <CheckoutButton id={params.id} />
         </div>
       </div>
     </section>

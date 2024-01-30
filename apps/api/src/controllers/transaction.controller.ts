@@ -49,6 +49,17 @@ export class TransactionController {
             }
           });
 
+          await tx.event.update({
+            where: {
+              id: trans.eventId
+            },
+            data: {
+              availableSeat: {
+                decrement: 1
+              }
+            }
+          });
+
           return trans;
         } else if (existingEvent.eventType === 'PAID') {
           const trans = await tx.transaction.create({
@@ -184,6 +195,17 @@ export class TransactionController {
             }
 
           }
+
+          await tx.event.update({
+            where: {
+              id: trans.eventId
+            },
+            data: {
+              availableSeat: {
+                decrement: 1
+              }
+            }
+          });
 
           return await tx.transaction.update({
             where: {

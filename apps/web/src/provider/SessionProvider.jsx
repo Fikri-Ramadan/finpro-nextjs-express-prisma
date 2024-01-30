@@ -2,6 +2,7 @@
 
 import usePoints from '@/hooks/usePoints';
 import useSession from '@/hooks/useSession';
+import useTransactions from '@/hooks/useTransactions';
 import { useCookies } from 'next-client-cookies';
 import { createContext, useEffect, useState } from 'react';
 
@@ -17,10 +18,10 @@ const SessionProvider = ({ children }) => {
   const [isAuthenticated, setAuthenticated] = useState(null);
 
   const cookies = useCookies();
-  const token = cookies.get('token');
+  const [token, setToken] = useState(cookies.get('token'));
 
-  const { data, isLoading } = useSession();
-  const { data: points } = usePoints();
+  const { data, isLoading, refetch } = useSession();
+  const { data: points, isLoading: loadingPoint } = usePoints();
 
   useEffect(() => {
     if (data) {
@@ -43,11 +44,11 @@ const SessionProvider = ({ children }) => {
       });
       setAuthenticated(false);
     }
-  }, [data, token, setUserDetails, isLoading, points]);
+  }, [data, token, setUserDetails, points, refetch]);
 
   return (
     <SessionContext.Provider
-      value={{ userDetails, isAuthenticated, isLoading }}
+      value={{ userDetails, isAuthenticated, isLoading, refetch }}
     >
       {children}
     </SessionContext.Provider>

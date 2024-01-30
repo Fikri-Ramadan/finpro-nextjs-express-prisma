@@ -30,8 +30,8 @@ export default function TransactionDialog() {
   const router = useRouter();
 
   return (
-    <Dialog open={isOpen}>
-      <DialogTrigger asChild onClick={() => setOpen(true)}>
+    <Dialog open={isOpen} onOpenChange={(e) => setOpen(e)}>
+      <DialogTrigger onClick={() => setOpen(true)}>
         <div className="pl-[8px] py-[4px] flex items-center cursor-pointer">
           <ArrowLeftRight className="mr-2 h-4 w-4" />
           <span className="text-sm">History Transactions</span>
@@ -39,8 +39,8 @@ export default function TransactionDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl max-h-[500px] overflow-y-scroll flex flex-col justify-center items-center">
         <DialogHeader>
-          <DialogTitle>Your Transaction History</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className='text-center'>Your Transaction History</DialogTitle>
+          <DialogDescription className='text-center'>
             You have {data?.length || 0} transactions!
           </DialogDescription>
         </DialogHeader>
@@ -62,7 +62,7 @@ export default function TransactionDialog() {
               {isLoading ? (
                 <div>Loading...</div>
               ) : (
-                data.map((transaction, i) => {
+                data?.map((transaction, i) => {
                   return (
                     <TableRow key={i}>
                       <TableCell>{i + 1}</TableCell>
@@ -77,10 +77,13 @@ export default function TransactionDialog() {
                         {transaction.event.name}
                       </TableCell>
                       <TableCell>
-                        Rp. {transaction.amountPaid || 'Free'}
+                        Rp.{' '}
+                        {Intl.NumberFormat('id-ID').format(
+                          transaction?.amountPaid,
+                        ) || 'Free'}
                       </TableCell>
                       <TableCell>{transaction.pointUsed || 0}</TableCell>
-                      <TableCell>{transaction.discountApplied || 0}</TableCell>
+                      <TableCell>{transaction.discountApplied || 0}%</TableCell>
                       <TableCell>
                         {new Date(transaction.date).toLocaleString('en-US')}
                       </TableCell>
